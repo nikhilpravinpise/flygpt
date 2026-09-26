@@ -1,0 +1,35 @@
+{
+  "artifact": "banc_build_v1",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T10:33:55Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt banc_build_v1"
+  },
+  "inputs": {},
+  "checks": {
+    "node_count_equals_meta_rows": 188508,
+    "edges_at_cutoff": {
+      "5": 1535710
+    },
+    "raw_edges_at_cutoff": {
+      "5": 1614479
+    },
+    "edges_both_meta": 11596517,
+    "edge_rows_dropped_unannotated": 0,
+    "duplicate_pairs_merged": 0,
+    "autapses_found": 156311,
+    "nt_sign": {
+      "sign_source": "per_neuron",
+      "inhibitory_edges": 4454704,
+      "excitatory_edges": 6950156,
+      "low_confidence_edges": 191657
+    },
+    "typed_fraction": 0.629936
+  },
+  "metrics": {
+    "wall_seconds": 27.77
+  },
+  "pass": null,
+  "manifest": "provenance/banc_graph_v1.json"
+}

@@ -1,0 +1,202 @@
+{
+  "artifact": "T-SIM-6",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:27:53Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SIM-6"
+  },
+  "inputs": {
+    "n_programs": 12,
+    "n_steps": 50,
+    "seed": 4783509172221435110,
+    "dt": 0.02
+  },
+  "checks": {
+    "n_trials": 9,
+    "degenerate_fraction": 0.0,
+    "degenerate_fraction_max": 0.05,
+    "stationary_fraction": 1.0,
+    "stationary_fraction_min": 0.9,
+    "sane_band_hz": {
+      "courtship_cue": {
+        "median": 0.0262139646558936,
+        "mad": 0.0,
+        "lo": 0.0262139646558936,
+        "hi": 0.0262139646558936
+      },
+      "gustatory_leg": {
+        "median": 0.02744028572733961,
+        "mad": 0.0,
+        "lo": 0.02744028572733961,
+        "hi": 0.02744028572733961
+      },
+      "gustatory_sugar": {
+        "median": 0.025965645289106724,
+        "mad": 0.0,
+        "lo": 0.025965645289106724,
+        "hi": 0.025965645289106724
+      },
+      "lc_silence": {
+        "median": 0.025380137412541692,
+        "mad": 0.0,
+        "lo": 0.025380137412541692,
+        "hi": 0.025380137412541692
+      },
+      "mechanosensory_jo": {
+        "median": 0.02555060332644853,
+        "mad": 0.0,
+        "lo": 0.02555060332644853,
+        "hi": 0.02555060332644853
+      },
+      "mechanosensory_other": {
+        "median": 0.030313502885474318,
+        "mad": 0.0,
+        "lo": 0.030313502885474318,
+        "hi": 0.030313502885474318
+      },
+      "naturalistic": {
+        "median": 0.023403148735448562,
+        "mad": 0.0,
+        "lo": 0.023403148735448562,
+        "hi": 0.023403148735448562
+      },
+      "olfactory_pulse": {
+        "median": 0.0256697089003058,
+        "mad": 0.0,
+        "lo": 0.0256697089003058,
+        "hi": 0.0256697089003058
+      },
+      "optogenetic": {
+        "median": 0.0,
+        "mad": 0.0,
+        "lo": 0.0,
+        "hi": 0.0
+      }
+    },
+    "per_trial": [
+      {
+        "n_events": 693284,
+        "active_node_fraction": 0.11436498296128596,
+        "active_type_fraction": 0.5304229427282784,
+        "split_half_r": 0.9521800277624349,
+        "stationary": true,
+        "expected_sparse": false,
+        "degenerate": false,
+        "mean_rate_hz": 0.0262139646558936,
+        "program_index": 0,
+        "family_id": "courtship_cue",
+        "n_driven": 109
+      },
+      {
+        "n_events": 435430,
+        "active_node_fraction": 0.11114157020848202,
+        "active_type_fraction": 0.5072759765126372,
+        "split_half_r": 0.8570237854706624,
+        "stationary": true,
+        "expected_sparse": false,
+        "degenerate": false,
+        "mean_rate_hz": 0.02744028572733961,
+        "program_index": 1,
+        "family_id": "gustatory_leg",
+        "n_driven": 575
+      },
+      {
+        "n_events": 412030,
+        "active_node_fraction": 0.10491215963928026,
+        "active_type_fraction": 0.4819164326440303,
+        "split_half_r": 0.8912727980943647,
+        "stationary": true,
+        "expected_sparse": false,
+        "degenerate": false,
+        "mean_rate_hz": 0.025965645289106724,
+        "program_index": 2,
+        "family_id": "gustatory_sugar",
+        "n_driven": 310
+      },
+      {
+        "n_events": 402739,
+        "active_node_fraction": 0.10735571446801874,
+        "active_type_fraction": 0.4948515019998298,
+        "split_half_r": 0.9236236448372415,
+        "stationary": true,
+        "expected_sparse": true,
+        "degenerate": false,
+        "mean_rate_hz": 0.025380137412541692,
+        "program_index": 3,
+        "family_id": "lc_silence",
+        "n_driven": 18
+      },
+      {
+        "n_events": 405444,
+        "active_node_fraction": 0.1167612736734144,
+        "active_type_fraction": 0.5505063398859672,
+        "split_half_r": 0.8780956866703401,
+        "stationary": true,
+        "expected_sparse": false,
+        "degenerate": false,
+        "mean_rate_hz": 0.02555060332644853,
+        "program_index": 4,
+        "family_id": "mechanosensory_jo",
+        "n_driven": 221
+      },
+      {
+        "n_events": 481023,
+        "active_node_fraction": 0.12758948278877194,
+        "active_type_fraction": 0.5853118883499276,
+        "split_half_r": 0.8479875567371702,
+        "stationary": true,
+        "expected_sparse": false,
+        "degenerate": false,
+        "mean_rate_hz": 0.030313502885474318,
+        "program_index": 5,
+        "family_id": "mechanosensory_other",
+        "n_driven": 1621
+      },
+      {
+        "n_events": 618946,
+        "active_node_fraction": 0.10815447803872821,
+        "active_type_fraction": 0.4904263466938984,
+        "split_half_r": 0.9406365769494903,
+        "stationary": true,
+        "expected_sparse": true,
+        "degenerate": false,
+        "mean_rate_hz": 0.023403148735448562,
+        "program_index": 6,
+        "family_id": "naturalistic",
+        "n_driven": 5
+      },
+      {
+        "n_events": 407334,
+        "active_node_fraction": 0.10576291373826077,
+        "active_type_fraction": 0.48166113522253423,
+        "split_half_r": 0.9278706350146257,
+        "stationary": true,
+        "expected_sparse": true,
+        "degenerate": false,
+        "mean_rate_hz": 0.0256697089003058,
+        "program_index": 7,
+        "family_id": "olfactory_pulse",
+        "n_driven": 20
+      },
+      {
+        "n_events": 0,
+        "active_node_fraction": 0.0,
+        "active_type_fraction": 0.0,
+        "split_half_r": NaN,
+        "stationary": false,
+        "expected_sparse": true,
+        "degenerate": false,
+        "mean_rate_hz": 0.0,
+        "program_index": 8,
+        "family_id": "optogenetic",
+        "n_driven": 0
+      }
+    ]
+  },
+  "metrics": {
+    "degenerate_fraction": 0.0,
+    "stationary_fraction": 1.0
+  },
+  "pass": true
+}

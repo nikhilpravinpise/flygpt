@@ -1,0 +1,20 @@
+{
+  "artifact": "T-REAL-3",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:25:07Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-REAL-3"
+  },
+  "inputs": {},
+  "checks": {
+    "runnable": {
+      "passed": false,
+      "detail": "needs song_stats from a courtship-slice SongDecoder.ethogram run (behavior.SongDecoder over a dt=5ms corpus slice)"
+    }
+  },
+  "metrics": {},
+  "pass": null,
+  "status": "na",
+  "reason": "needs song_stats from a courtship-slice SongDecoder.ethogram run (behavior.SongDecoder over a dt=5ms corpus slice)"
+}

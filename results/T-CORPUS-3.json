@@ -1,0 +1,1252 @@
+{
+  "artifact": "T-CORPUS-3",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:17:09Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-CORPUS-3"
+  },
+  "inputs": {
+    "corpus_dir": "data\\corpus\\pilot\\pilot",
+    "floors": {
+      "driven": 0.9,
+      "robust": 0.75
+    }
+  },
+  "checks": {
+    "n_types": 203,
+    "n_driven": 203,
+    "n_robust": 203,
+    "driven_fraction": 1.0,
+    "robust_fraction": 1.0,
+    "floors": {
+      "driven": 0.9,
+      "robust": 0.75
+    },
+    "per_type": {
+      "JO-A4": {
+        "n_events": 3700,
+        "n_trials": 448,
+        "driven": true,
+        "robust": true
+      },
+      "JO-B1_a": {
+        "n_events": 10100,
+        "n_trials": 442,
+        "driven": true,
+        "robust": true
+      },
+      "JO-B1_b": {
+        "n_events": 3700,
+        "n_trials": 456,
+        "driven": true,
+        "robust": true
+      },
+      "JO-B1_c": {
+        "n_events": 3700,
+        "n_trials": 496,
+        "driven": true,
+        "robust": true
+      },
+      "JO-B3": {
+        "n_events": 6800,
+        "n_trials": 473,
+        "driven": true,
+        "robust": true
+      },
+      "JO-B4_b": {
+        "n_events": 9800,
+        "n_trials": 458,
+        "driven": true,
+        "robust": true
+      },
+      "JO-CA1": {
+        "n_events": 6300,
+        "n_trials": 461,
+        "driven": true,
+        "robust": true
+      },
+      "JO-CL": {
+        "n_events": 21300,
+        "n_trials": 437,
+        "driven": true,
+        "robust": true
+      },
+      "JO-CM": {
+        "n_events": 47700,
+        "n_trials": 459,
+        "driven": true,
+        "robust": true
+      },
+      "JO-ED1": {
+        "n_events": 17400,
+        "n_trials": 457,
+        "driven": true,
+        "robust": true
+      },
+      "JO-ED2_a": {
+        "n_events": 52500,
+        "n_trials": 434,
+        "driven": true,
+        "robust": true
+      },
+      "JO-ED2_b": {
+        "n_events": 34000,
+        "n_trials": 454,
+        "driven": true,
+        "robust": true
+      },
+      "JO-ED2_c": {
+        "n_events": 17300,
+        "n_trials": 457,
+        "driven": true,
+        "robust": true
+      },
+      "JO-EV1": {
+        "n_events": 65200,
+        "n_trials": 454,
+        "driven": true,
+        "robust": true
+      },
+      "JO-EV2": {
+        "n_events": 54800,
+        "n_trials": 471,
+        "driven": true,
+        "robust": true
+      },
+      "JO-EV3": {
+        "n_events": 77700,
+        "n_trials": 408,
+        "driven": true,
+        "robust": true
+      },
+      "JO-EV5": {
+        "n_events": 35500,
+        "n_trials": 444,
+        "driven": true,
+        "robust": true
+      },
+      "JO-EV6": {
+        "n_events": 23700,
+        "n_trials": 433,
+        "driven": true,
+        "robust": true
+      },
+      "JO-FD2": {
+        "n_events": 6300,
+        "n_trials": 449,
+        "driven": true,
+        "robust": true
+      },
+      "JO-FV": {
+        "n_events": 116400,
+        "n_trials": 453,
+        "driven": true,
+        "robust": true
+      },
+      "JO-unclear": {
+        "n_events": 321200,
+        "n_trials": 447,
+        "driven": true,
+        "robust": true
+      },
+      "LB1a": {
+        "n_events": 79900,
+        "n_trials": 472,
+        "driven": true,
+        "robust": true
+      },
+      "LB1b": {
+        "n_events": 302200,
+        "n_trials": 442,
+        "driven": true,
+        "robust": true
+      },
+      "LB1c": {
+        "n_events": 194400,
+        "n_trials": 479,
+        "driven": true,
+        "robust": true
+      },
+      "LB1d": {
+        "n_events": 56500,
+        "n_trials": 453,
+        "driven": true,
+        "robust": true
+      },
+      "LB1e": {
+        "n_events": 254900,
+        "n_trials": 480,
+        "driven": true,
+        "robust": true
+      },
+      "LB2a": {
+        "n_events": 14400,
+        "n_trials": 453,
+        "driven": true,
+        "robust": true
+      },
+      "LB2b": {
+        "n_events": 21000,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "LB2c": {
+        "n_events": 38900,
+        "n_trials": 463,
+        "driven": true,
+        "robust": true
+      },
+      "LB2d": {
+        "n_events": 14200,
+        "n_trials": 458,
+        "driven": true,
+        "robust": true
+      },
+      "LB3": {
+        "n_events": 3300,
+        "n_trials": 446,
+        "driven": true,
+        "robust": true
+      },
+      "LB3a": {
+        "n_events": 64800,
+        "n_trials": 466,
+        "driven": true,
+        "robust": true
+      },
+      "LB3b": {
+        "n_events": 43500,
+        "n_trials": 464,
+        "driven": true,
+        "robust": true
+      },
+      "LB3c": {
+        "n_events": 232700,
+        "n_trials": 474,
+        "driven": true,
+        "robust": true
+      },
+      "LB3d": {
+        "n_events": 123600,
+        "n_trials": 489,
+        "driven": true,
+        "robust": true
+      },
+      "LB4a": {
+        "n_events": 19200,
+        "n_trials": 460,
+        "driven": true,
+        "robust": true
+      },
+      "LB4b": {
+        "n_events": 204400,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "LC10b": {
+        "n_events": 242900,
+        "n_trials": 453,
+        "driven": true,
+        "robust": true
+      },
+      "LPLC2": {
+        "n_events": 655700,
+        "n_trials": 462,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG1": {
+        "n_events": 1419300,
+        "n_trials": 435,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG2": {
+        "n_events": 261100,
+        "n_trials": 493,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG3": {
+        "n_events": 336000,
+        "n_trials": 473,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG4": {
+        "n_events": 450700,
+        "n_trials": 474,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG5": {
+        "n_events": 75200,
+        "n_trials": 475,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG6": {
+        "n_events": 233600,
+        "n_trials": 454,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG7": {
+        "n_events": 7800,
+        "n_trials": 450,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG8": {
+        "n_events": 47100,
+        "n_trials": 459,
+        "driven": true,
+        "robust": true
+      },
+      "LgAG9": {
+        "n_events": 18300,
+        "n_trials": 424,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG1a": {
+        "n_events": 268300,
+        "n_trials": 454,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG1b": {
+        "n_events": 255100,
+        "n_trials": 479,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG2": {
+        "n_events": 253900,
+        "n_trials": 494,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG3": {
+        "n_events": 305900,
+        "n_trials": 487,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG4": {
+        "n_events": 86500,
+        "n_trials": 455,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG5": {
+        "n_events": 23300,
+        "n_trials": 475,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG6": {
+        "n_events": 35400,
+        "n_trials": 466,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG7": {
+        "n_events": 42900,
+        "n_trials": 448,
+        "driven": true,
+        "robust": true
+      },
+      "LgLG8": {
+        "n_events": 24600,
+        "n_trials": 458,
+        "driven": true,
+        "robust": true
+      },
+      "ORN_VA7l": {
+        "n_events": 369100,
+        "n_trials": 448,
+        "driven": true,
+        "robust": true
+      },
+      "ORN_VA7m": {
+        "n_events": 114900,
+        "n_trials": 455,
+        "driven": true,
+        "robust": true
+      },
+      "ORN_VM4": {
+        "n_events": 24700,
+        "n_trials": 434,
+        "driven": true,
+        "robust": true
+      },
+      "PhG10": {
+        "n_events": 22500,
+        "n_trials": 460,
+        "driven": true,
+        "robust": true
+      },
+      "PhG11": {
+        "n_events": 17300,
+        "n_trials": 439,
+        "driven": true,
+        "robust": true
+      },
+      "PhG12": {
+        "n_events": 61200,
+        "n_trials": 449,
+        "driven": true,
+        "robust": true
+      },
+      "PhG13": {
+        "n_events": 63500,
+        "n_trials": 469,
+        "driven": true,
+        "robust": true
+      },
+      "PhG14": {
+        "n_events": 6500,
+        "n_trials": 452,
+        "driven": true,
+        "robust": true
+      },
+      "PhG15": {
+        "n_events": 32200,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "PhG16": {
+        "n_events": 7000,
+        "n_trials": 440,
+        "driven": true,
+        "robust": true
+      },
+      "PhG1a": {
+        "n_events": 6800,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "PhG1b": {
+        "n_events": 7100,
+        "n_trials": 461,
+        "driven": true,
+        "robust": true
+      },
+      "PhG1c": {
+        "n_events": 13100,
+        "n_trials": 472,
+        "driven": true,
+        "robust": true
+      },
+      "PhG2": {
+        "n_events": 13500,
+        "n_trials": 476,
+        "driven": true,
+        "robust": true
+      },
+      "PhG3": {
+        "n_events": 7200,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "PhG4": {
+        "n_events": 13600,
+        "n_trials": 449,
+        "driven": true,
+        "robust": true
+      },
+      "PhG5": {
+        "n_events": 22400,
+        "n_trials": 470,
+        "driven": true,
+        "robust": true
+      },
+      "PhG6": {
+        "n_events": 6000,
+        "n_trials": 464,
+        "driven": true,
+        "robust": true
+      },
+      "PhG7": {
+        "n_events": 17200,
+        "n_trials": 482,
+        "driven": true,
+        "robust": true
+      },
+      "PhG8": {
+        "n_events": 46300,
+        "n_trials": 466,
+        "driven": true,
+        "robust": true
+      },
+      "PhG9": {
+        "n_events": 14600,
+        "n_trials": 426,
+        "driven": true,
+        "robust": true
+      },
+      "SApp01": {
+        "n_events": 35200,
+        "n_trials": 487,
+        "driven": true,
+        "robust": true
+      },
+      "SApp02,SApp03": {
+        "n_events": 3600,
+        "n_trials": 442,
+        "driven": true,
+        "robust": true
+      },
+      "SApp04": {
+        "n_events": 17400,
+        "n_trials": 462,
+        "driven": true,
+        "robust": true
+      },
+      "SApp05": {
+        "n_events": 6900,
+        "n_trials": 460,
+        "driven": true,
+        "robust": true
+      },
+      "SApp06,SApp15": {
+        "n_events": 68800,
+        "n_trials": 455,
+        "driven": true,
+        "robust": true
+      },
+      "SApp07": {
+        "n_events": 3500,
+        "n_trials": 481,
+        "driven": true,
+        "robust": true
+      },
+      "SApp08": {
+        "n_events": 82600,
+        "n_trials": 432,
+        "driven": true,
+        "robust": true
+      },
+      "SApp09,SApp22": {
+        "n_events": 134500,
+        "n_trials": 471,
+        "driven": true,
+        "robust": true
+      },
+      "SApp10": {
+        "n_events": 70800,
+        "n_trials": 470,
+        "driven": true,
+        "robust": true
+      },
+      "SApp11,SApp18": {
+        "n_events": 13700,
+        "n_trials": 424,
+        "driven": true,
+        "robust": true
+      },
+      "SApp13": {
+        "n_events": 13800,
+        "n_trials": 484,
+        "driven": true,
+        "robust": true
+      },
+      "SApp14": {
+        "n_events": 10800,
+        "n_trials": 454,
+        "driven": true,
+        "robust": true
+      },
+      "SApp19": {
+        "n_events": 13700,
+        "n_trials": 444,
+        "driven": true,
+        "robust": true
+      },
+      "SApp20": {
+        "n_events": 3500,
+        "n_trials": 454,
+        "driven": true,
+        "robust": true
+      },
+      "SApp21": {
+        "n_events": 7200,
+        "n_trials": 432,
+        "driven": true,
+        "robust": true
+      },
+      "SApp23": {
+        "n_events": 25500,
+        "n_trials": 442,
+        "driven": true,
+        "robust": true
+      },
+      "SApp23,SNpp56": {
+        "n_events": 7000,
+        "n_trials": 455,
+        "driven": true,
+        "robust": true
+      },
+      "SNch05": {
+        "n_events": 23800,
+        "n_trials": 465,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp04": {
+        "n_events": 7500,
+        "n_trials": 440,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp05": {
+        "n_events": 3500,
+        "n_trials": 450,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp06": {
+        "n_events": 7000,
+        "n_trials": 450,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp07": {
+        "n_events": 20300,
+        "n_trials": 496,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp08": {
+        "n_events": 7000,
+        "n_trials": 469,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp09": {
+        "n_events": 6800,
+        "n_trials": 458,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp10": {
+        "n_events": 14000,
+        "n_trials": 478,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp11": {
+        "n_events": 10300,
+        "n_trials": 463,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp16": {
+        "n_events": 24300,
+        "n_trials": 457,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp17": {
+        "n_events": 28700,
+        "n_trials": 450,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp18": {
+        "n_events": 24000,
+        "n_trials": 462,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp22": {
+        "n_events": 4600,
+        "n_trials": 497,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp24": {
+        "n_events": 6600,
+        "n_trials": 483,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp26": {
+        "n_events": 3400,
+        "n_trials": 451,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp27": {
+        "n_events": 3600,
+        "n_trials": 488,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp28": {
+        "n_events": 31300,
+        "n_trials": 445,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp29,SNpp63": {
+        "n_events": 31500,
+        "n_trials": 451,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp30": {
+        "n_events": 13300,
+        "n_trials": 452,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp31": {
+        "n_events": 3500,
+        "n_trials": 486,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp32": {
+        "n_events": 14300,
+        "n_trials": 473,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp33": {
+        "n_events": 10500,
+        "n_trials": 470,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp34,SApp16": {
+        "n_events": 3800,
+        "n_trials": 488,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp36": {
+        "n_events": 3000,
+        "n_trials": 449,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp37": {
+        "n_events": 10500,
+        "n_trials": 455,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp38": {
+        "n_events": 11000,
+        "n_trials": 476,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp39": {
+        "n_events": 39300,
+        "n_trials": 509,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp40": {
+        "n_events": 33200,
+        "n_trials": 498,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp41": {
+        "n_events": 15100,
+        "n_trials": 463,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp42": {
+        "n_events": 21700,
+        "n_trials": 422,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp43": {
+        "n_events": 21000,
+        "n_trials": 447,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp44": {
+        "n_events": 4300,
+        "n_trials": 453,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp46": {
+        "n_events": 2200,
+        "n_trials": 462,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp47": {
+        "n_events": 46300,
+        "n_trials": 492,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp48": {
+        "n_events": 9600,
+        "n_trials": 485,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp49": {
+        "n_events": 4900,
+        "n_trials": 451,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp50": {
+        "n_events": 72000,
+        "n_trials": 473,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp51": {
+        "n_events": 32100,
+        "n_trials": 466,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp53": {
+        "n_events": 20800,
+        "n_trials": 456,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp56": {
+        "n_events": 8200,
+        "n_trials": 488,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp57": {
+        "n_events": 11000,
+        "n_trials": 472,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp58": {
+        "n_events": 18600,
+        "n_trials": 447,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp59": {
+        "n_events": 8200,
+        "n_trials": 471,
+        "driven": true,
+        "robust": true
+      },
+      "SNpp60": {
+        "n_events": 50600,
+        "n_trials": 474,
+        "driven": true,
+        "robust": true
+      },
+      "SNta02": {
+        "n_events": 3300,
+        "n_trials": 476,
+        "driven": true,
+        "robust": true
+      },
+      "SNta02,SNta09": {
+        "n_events": 35300,
+        "n_trials": 495,
+        "driven": true,
+        "robust": true
+      },
+      "SNta03": {
+        "n_events": 66500,
+        "n_trials": 468,
+        "driven": true,
+        "robust": true
+      },
+      "SNta04": {
+        "n_events": 140700,
+        "n_trials": 478,
+        "driven": true,
+        "robust": true
+      },
+      "SNta04,SNta11": {
+        "n_events": 97100,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "SNta05": {
+        "n_events": 9800,
+        "n_trials": 438,
+        "driven": true,
+        "robust": true
+      },
+      "SNta06": {
+        "n_events": 17400,
+        "n_trials": 453,
+        "driven": true,
+        "robust": true
+      },
+      "SNta07": {
+        "n_events": 49300,
+        "n_trials": 489,
+        "driven": true,
+        "robust": true
+      },
+      "SNta10": {
+        "n_events": 3500,
+        "n_trials": 479,
+        "driven": true,
+        "robust": true
+      },
+      "SNta11": {
+        "n_events": 109000,
+        "n_trials": 476,
+        "driven": true,
+        "robust": true
+      },
+      "SNta11,SNta14": {
+        "n_events": 70900,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "SNta12": {
+        "n_events": 7300,
+        "n_trials": 462,
+        "driven": true,
+        "robust": true
+      },
+      "SNta13": {
+        "n_events": 10400,
+        "n_trials": 480,
+        "driven": true,
+        "robust": true
+      },
+      "SNta14": {
+        "n_events": 24400,
+        "n_trials": 484,
+        "driven": true,
+        "robust": true
+      },
+      "SNta18": {
+        "n_events": 94600,
+        "n_trials": 476,
+        "driven": true,
+        "robust": true
+      },
+      "SNta19": {
+        "n_events": 40900,
+        "n_trials": 479,
+        "driven": true,
+        "robust": true
+      },
+      "SNta19,SNta37": {
+        "n_events": 24000,
+        "n_trials": 482,
+        "driven": true,
+        "robust": true
+      },
+      "SNta20": {
+        "n_events": 238500,
+        "n_trials": 473,
+        "driven": true,
+        "robust": true
+      },
+      "SNta21": {
+        "n_events": 208100,
+        "n_trials": 473,
+        "driven": true,
+        "robust": true
+      },
+      "SNta21,SNta38": {
+        "n_events": 3500,
+        "n_trials": 485,
+        "driven": true,
+        "robust": true
+      },
+      "SNta22,SNta23": {
+        "n_events": 10000,
+        "n_trials": 478,
+        "driven": true,
+        "robust": true
+      },
+      "SNta22,SNta33": {
+        "n_events": 13200,
+        "n_trials": 483,
+        "driven": true,
+        "robust": true
+      },
+      "SNta23": {
+        "n_events": 89700,
+        "n_trials": 464,
+        "driven": true,
+        "robust": true
+      },
+      "SNta25": {
+        "n_events": 108900,
+        "n_trials": 465,
+        "driven": true,
+        "robust": true
+      },
+      "SNta25,SNta30": {
+        "n_events": 18000,
+        "n_trials": 489,
+        "driven": true,
+        "robust": true
+      },
+      "SNta26": {
+        "n_events": 52700,
+        "n_trials": 463,
+        "driven": true,
+        "robust": true
+      },
+      "SNta27": {
+        "n_events": 66000,
+        "n_trials": 437,
+        "driven": true,
+        "robust": true
+      },
+      "SNta27,SNta28": {
+        "n_events": 3700,
+        "n_trials": 476,
+        "driven": true,
+        "robust": true
+      },
+      "SNta28": {
+        "n_events": 133300,
+        "n_trials": 466,
+        "driven": true,
+        "robust": true
+      },
+      "SNta28,SNta29": {
+        "n_events": 3700,
+        "n_trials": 460,
+        "driven": true,
+        "robust": true
+      },
+      "SNta28,SNta44": {
+        "n_events": 17500,
+        "n_trials": 464,
+        "driven": true,
+        "robust": true
+      },
+      "SNta29": {
+        "n_events": 396400,
+        "n_trials": 458,
+        "driven": true,
+        "robust": true
+      },
+      "SNta30": {
+        "n_events": 117400,
+        "n_trials": 493,
+        "driven": true,
+        "robust": true
+      },
+      "SNta31": {
+        "n_events": 86000,
+        "n_trials": 439,
+        "driven": true,
+        "robust": true
+      },
+      "SNta31,SNta34": {
+        "n_events": 3700,
+        "n_trials": 466,
+        "driven": true,
+        "robust": true
+      },
+      "SNta32": {
+        "n_events": 75400,
+        "n_trials": 459,
+        "driven": true,
+        "robust": true
+      },
+      "SNta33": {
+        "n_events": 41600,
+        "n_trials": 480,
+        "driven": true,
+        "robust": true
+      },
+      "SNta34": {
+        "n_events": 82300,
+        "n_trials": 484,
+        "driven": true,
+        "robust": true
+      },
+      "SNta35": {
+        "n_events": 81800,
+        "n_trials": 464,
+        "driven": true,
+        "robust": true
+      },
+      "SNta36": {
+        "n_events": 13700,
+        "n_trials": 479,
+        "driven": true,
+        "robust": true
+      },
+      "SNta37": {
+        "n_events": 439100,
+        "n_trials": 461,
+        "driven": true,
+        "robust": true
+      },
+      "SNta38": {
+        "n_events": 240100,
+        "n_trials": 442,
+        "driven": true,
+        "robust": true
+      },
+      "SNta39": {
+        "n_events": 21000,
+        "n_trials": 457,
+        "driven": true,
+        "robust": true
+      },
+      "SNta40": {
+        "n_events": 64600,
+        "n_trials": 478,
+        "driven": true,
+        "robust": true
+      },
+      "SNta41": {
+        "n_events": 101100,
+        "n_trials": 500,
+        "driven": true,
+        "robust": true
+      },
+      "SNta42": {
+        "n_events": 137700,
+        "n_trials": 483,
+        "driven": true,
+        "robust": true
+      },
+      "SNta43": {
+        "n_events": 122600,
+        "n_trials": 467,
+        "driven": true,
+        "robust": true
+      },
+      "SNta44": {
+        "n_events": 56200,
+        "n_trials": 484,
+        "driven": true,
+        "robust": true
+      },
+      "SNta44,SNta45": {
+        "n_events": 3500,
+        "n_trials": 450,
+        "driven": true,
+        "robust": true
+      },
+      "SNta45": {
+        "n_events": 62200,
+        "n_trials": 428,
+        "driven": true,
+        "robust": true
+      },
+      "SNxx31": {
+        "n_events": 3700,
+        "n_trials": 471,
+        "driven": true,
+        "robust": true
+      },
+      "SNxxxx": {
+        "n_events": 11500,
+        "n_trials": 470,
+        "driven": true,
+        "robust": true
+      },
+      "WG1": {
+        "n_events": 189400,
+        "n_trials": 465,
+        "driven": true,
+        "robust": true
+      },
+      "WG2": {
+        "n_events": 197600,
+        "n_trials": 443,
+        "driven": true,
+        "robust": true
+      },
+      "WG3": {
+        "n_events": 189700,
+        "n_trials": 462,
+        "driven": true,
+        "robust": true
+      },
+      "WG4": {
+        "n_events": 192100,
+        "n_trials": 449,
+        "driven": true,
+        "robust": true
+      },
+      "aPhM1": {
+        "n_events": 71300,
+        "n_trials": 479,
+        "driven": true,
+        "robust": true
+      },
+      "aPhM2a": {
+        "n_events": 18200,
+        "n_trials": 448,
+        "driven": true,
+        "robust": true
+      },
+      "aPhM2b": {
+        "n_events": 6900,
+        "n_trials": 445,
+        "driven": true,
+        "robust": true
+      },
+      "aPhM3": {
+        "n_events": 17200,
+        "n_trials": 464,
+        "driven": true,
+        "robust": true
+      },
+      "aPhM4": {
+        "n_events": 7100,
+        "n_trials": 465,
+        "driven": true,
+        "robust": true
+      },
+      "aPhM5": {
+        "n_events": 13600,
+        "n_trials": 478,
+        "driven": true,
+        "robust": true
+      },
+      "claw_tpGRN": {
+        "n_events": 198100,
+        "n_trials": 459,
+        "driven": true,
+        "robust": true
+      },
+      "dorsal_tpGRN": {
+        "n_events": 43800,
+        "n_trials": 488,
+        "driven": true,
+        "robust": true
+      }
+    }
+  },
+  "metrics": {
+    "driven_fraction": 1.0,
+    "robust_fraction": 1.0
+  },
+  "pass": true
+}

@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+.eggs/
+build/
+dist/
+pip-wheel-metadata/
+
+# Virtualenvs
+.venv/
+venv/
+env/
+ENV/
+
+# Tool caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+
+# Hugging Face cache dirs (local only - artifacts live on the hub)
+.hf_cache/
+hf_cache/
+.cache/huggingface/
+HF_HOME/
+
+# Large data artifacts - never committed.
+# Downloaded raw connectome files and built graphs are regenerable from
+# canonical sources; provenance manifests (JSON) ARE committed.
+data/
+*.feather
+*.parquet
+*.arrow
+*.h5
+*.npz
+
+# Provenance and eval results are committed on purpose - they are the
+# evidence chain. Negate any pattern above that would swallow them.
+!provenance/
+!provenance/*.json
+!results/
+!results/*.json
+!evals/alignment_v1.parquet
+
+# transient build logs
+build_err.log
+*.log
+
+# Training artifacts
+checkpoints/
+wandb/
+runs/
+*.ckpt
+*.pt
+*.onnx
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/

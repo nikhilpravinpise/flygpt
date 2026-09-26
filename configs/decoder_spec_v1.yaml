@@ -1,0 +1,65 @@
+# FlyGPT behavior decoder specification
+# Version tag: decoder_v1. Written BEFORE any behavior-head training
+# (plan.md Phase 3 hard requirement - this document is the decoder spec,
+# not vibes; Eon's criticism was exactly this spot).
+#
+# Readout populations are grounded in MaleCNS/MANC motor annotations:
+# vnc_motor (708 MNs), cb_motor (107), descending_neuron classes, with
+# exitNerve/somaNeuromere giving the body map. Sex applicability is
+# declared per head; male-only heads are masked under female
+# conditioning (T-SEX-4).
+version: decoder_v1
+
+heads:
+  song_pulse:
+    sex: male_only
+    description: wing-motor pulse pattern -> courtship pulse-song bouts
+    readout:
+      superclasses: [vnc_motor]
+      neuromeres: [T1, T2]          # wing neuropil motor units
+      notes: wing MNs (DLM/DVM/steering set via subclass/type lists)
+    decode:
+      rule: pulse_train             # per-MN burst pattern -> bout times
+      dt: 0.005                     # courtship slice resolution
+      bout_gap_s: 0.010
+  song_sine:
+    sex: male_only
+    description: sustained wing-MN drive -> sine-song bouts
+    readout: {superclasses: [vnc_motor], neuromeres: [T1, T2]}
+    decode: {rule: sustained_drive, dt: 0.005, min_bout_s: 0.050}
+  locomotion:
+    sex: both
+    description: leg-motor alternation -> walking
+    readout:
+      superclasses: [vnc_motor]
+      neuromeres: [T1, T2, T3]
+    decode: {rule: alternating_rate, window_s: 0.2}
+  grooming:
+    sex: both
+    # MaleCNS v1.0 truth: the 65 subclass=grooming neurons are cb_sensory
+    # afferents (no vnc_motor grooming subclass exists in the annotations),
+    # so the readout is the labeled grooming population itself.
+    description: grooming-circuit afferent population
+    readout:
+      subclasses: [grooming]
+    decode: {rule: sustained_drive, window_s: 0.3}
+  feeding:
+    sex: both
+    description: proboscis/extension motor program (MN9 axis)
+    readout:
+      superclasses: [cb_motor]
+      types: [MN9]
+    decode: {rule: sustained_drive, window_s: 0.2}
+  escape:
+    sex: both
+    description: DNp01 giant-fiber escape command
+    readout:
+      types: [DNp01]
+    decode: {rule: threshold_events, min_rate_hz: 20}
+  rejection:
+    sex: female_only
+    description: female rejection/kick behaviors
+    readout:
+      superclasses: [vnc_motor]
+      neuromeres: [A1, A2, A3]
+    decode: {rule: burst_pattern, window_s: 0.2}

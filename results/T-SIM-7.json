@@ -1,0 +1,186 @@
+{
+  "artifact": "T-SIM-7",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:23Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SIM-7"
+  },
+  "inputs": {
+    "panel": "C:\\Dev\\flygpt\\evals\\shiu_panel.json",
+    "n_trials": 30,
+    "baseline_window_s": [
+      0.0,
+      0.2
+    ],
+    "drive_window_s": [
+      0.2,
+      1.0
+    ],
+    "seed": 2208229035408555163
+  },
+  "checks": {
+    "experiments": [
+      {
+        "id": "sugar_grn_to_mn9",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 310,
+        "n_target_nodes": 2,
+        "predicted": "increase",
+        "delta_mean": 12.25,
+        "ci": [
+          10.660516958084884,
+          13.839483041915116
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "jo_to_grooming",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 425,
+        "n_target_nodes": 2672,
+        "predicted": "increase",
+        "delta_mean": 11.561112150698602,
+        "ci": [
+          11.534832909131246,
+          11.587391392265957
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "lc4_to_dnp01",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 126,
+        "n_target_nodes": 2,
+        "predicted": "increase",
+        "delta_mean": 48.75,
+        "ci": [
+          48.75,
+          48.75
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "lplc2_to_dnp01",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 185,
+        "n_target_nodes": 2,
+        "predicted": "increase",
+        "delta_mean": 48.75,
+        "ci": [
+          48.75,
+          48.75
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "orn_bilateral_to_ln",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 2635,
+        "n_target_nodes": 89403,
+        "predicted": "increase",
+        "delta_mean": 0.2623252761838715,
+        "ci": [
+          0.26048708263434933,
+          0.2641634697333937
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "gustatory_leg_to_sez",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 768,
+        "n_target_nodes": 27,
+        "predicted": "increase",
+        "delta_mean": 29.611111111111104,
+        "ci": [
+          29.48427060323227,
+          29.737951618989936
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "visual_lc_to_vnc_dn",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 4257,
+        "n_target_nodes": 1314,
+        "predicted": "increase",
+        "delta_mean": 10.215436326737695,
+        "ci": [
+          10.188599277818824,
+          10.242273375656566
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "unstimulated_control",
+        "expected": "no-effect",
+        "skipped": false,
+        "n_drive_nodes": 0,
+        "n_target_nodes": 4,
+        "predicted": "no-effect",
+        "delta_mean": 0.0,
+        "ci": [
+          0.0,
+          0.0
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      },
+      {
+        "id": "inhibitory_sign_sanity",
+        "expected": "decrease",
+        "skipped": false,
+        "n_drive_nodes": 1775,
+        "n_target_nodes": 23502,
+        "predicted": "decrease",
+        "delta_mean": -0.6478420276288543,
+        "ci": [
+          -0.668364581311049,
+          -0.6273194739466597
+        ],
+        "noise_floor": 0.23107075993532478,
+        "correct": true
+      },
+      {
+        "id": "mech_wind_to_dn",
+        "expected": "increase",
+        "skipped": false,
+        "n_drive_nodes": 475,
+        "n_target_nodes": 1314,
+        "predicted": "increase",
+        "delta_mean": 8.932743531202435,
+        "ci": [
+          8.902450387339634,
+          8.963036675065236
+        ],
+        "noise_floor": 0.0,
+        "correct": true
+      }
+    ],
+    "n_panel": 10,
+    "n_evaluated": 10,
+    "n_correct": 10,
+    "pass_rule": ">= 8/10 directionally correct",
+    "fraction_correct_of_panel": 1.0
+  },
+  "metrics": {
+    "n_correct": 10,
+    "n_evaluated": 10
+  },
+  "pass": true
+}

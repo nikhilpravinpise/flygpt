@@ -1,0 +1,35 @@
+{
+  "artifact": "graph_build",
+  "graph_version": "graph_v1",
+  "manifest": "provenance/graph_v1.json",
+  "checks": {
+    "node_count_equals_annotation_rows": 211577,
+    "edges_at_cutoff": {
+      "3": 10653945,
+      "5": 6300108,
+      "10": 2769379
+    },
+    "raw_edges_at_cutoff": {
+      "3": 23014406,
+      "5": 7622864,
+      "10": 2799910
+    },
+    "edges_both_traced": 25563197,
+    "autapses_kept": 112,
+    "duplicate_pairs_merged": 0,
+    "derived_weight_reconciliation": {
+      "mismatch_edges": 0,
+      "max_abs_delta": 0,
+      "total_abs_delta": 0,
+      "edges_with_zero_syn_rows": 0
+    },
+    "nt_sign": {
+      "inhibitory_edges": 9199452,
+      "excitatory_edges": 16148273,
+      "low_confidence_edges": 680661,
+      "edge_vs_neuron_sign_disagree": 847201
+    },
+    "typed_fraction": 0.777523
+  },
+  "wall_seconds": 856.04
+}

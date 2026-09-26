@@ -1,0 +1,162 @@
+{
+  "artifact": "T-TOK-4",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:52Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-TOK-4"
+  },
+  "inputs": {
+    "bin_fn": "_default_bin_fn"
+  },
+  "checks": {
+    "dt": 0.02,
+    "t0": 0.0,
+    "n_cases": 23,
+    "n_misassigned": 0,
+    "cases": [
+      {
+        "t": 0.0,
+        "expected": 0,
+        "got": 0,
+        "ok": true
+      },
+      {
+        "t": 0.019999999,
+        "expected": 0,
+        "got": 0,
+        "ok": true
+      },
+      {
+        "t": 0.02,
+        "expected": 1,
+        "got": 1,
+        "ok": true
+      },
+      {
+        "t": 0.039999999,
+        "expected": 1,
+        "got": 1,
+        "ok": true
+      },
+      {
+        "t": 0.019999999,
+        "expected": 0,
+        "got": 0,
+        "ok": true
+      },
+      {
+        "t": 0.04,
+        "expected": 2,
+        "got": 2,
+        "ok": true
+      },
+      {
+        "t": 0.059999999,
+        "expected": 2,
+        "got": 2,
+        "ok": true
+      },
+      {
+        "t": 0.039999999,
+        "expected": 1,
+        "got": 1,
+        "ok": true
+      },
+      {
+        "t": 0.06,
+        "expected": 3,
+        "got": 3,
+        "ok": true
+      },
+      {
+        "t": 0.079999999,
+        "expected": 3,
+        "got": 3,
+        "ok": true
+      },
+      {
+        "t": 0.059999999,
+        "expected": 2,
+        "got": 2,
+        "ok": true
+      },
+      {
+        "t": 0.08,
+        "expected": 4,
+        "got": 4,
+        "ok": true
+      },
+      {
+        "t": 0.099999999,
+        "expected": 4,
+        "got": 4,
+        "ok": true
+      },
+      {
+        "t": 0.079999999,
+        "expected": 3,
+        "got": 3,
+        "ok": true
+      },
+      {
+        "t": 0.1,
+        "expected": 5,
+        "got": 5,
+        "ok": true
+      },
+      {
+        "t": 0.11999999900000001,
+        "expected": 5,
+        "got": 5,
+        "ok": true
+      },
+      {
+        "t": 0.099999999,
+        "expected": 4,
+        "got": 4,
+        "ok": true
+      },
+      {
+        "t": 0.12,
+        "expected": 6,
+        "got": 6,
+        "ok": true
+      },
+      {
+        "t": 0.13999999899999999,
+        "expected": 6,
+        "got": 6,
+        "ok": true
+      },
+      {
+        "t": 0.119999999,
+        "expected": 5,
+        "got": 5,
+        "ok": true
+      },
+      {
+        "t": 0.14,
+        "expected": 7,
+        "got": 7,
+        "ok": true
+      },
+      {
+        "t": 0.159999999,
+        "expected": 7,
+        "got": 7,
+        "ok": true
+      },
+      {
+        "t": 0.139999999,
+        "expected": 6,
+        "got": 6,
+        "ok": true
+      }
+    ]
+  },
+  "metrics": {
+    "n_misassigned": 0
+  },
+  "pass": true
+}

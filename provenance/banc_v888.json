@@ -1,0 +1,88 @@
+{
+  "dataset": "banc:v888",
+  "title": "BANC female brain+nerve-cord connectome (materialization 888)",
+  "source_bucket": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/",
+  "license": "CC-BY-4.0",
+  "citation": "Bates, Phelps, Kim et al. 2026, Nature - BANC connectome (Harvard Lee lab + Zetta AI + FlyWire)",
+  "conventions": {
+    "snapshot": "v888",
+    "synapse_snapshot": "v2 (size>=5; matches male >=5 convention; v3=size>=10 documented sensitivity slice)",
+    "autapse_policy": "excluded_at_build (~2.1% upstream; documented asymmetry vs male keep)",
+    "edge_schema": "pre,post (string root ids); count=int32 synapses; norm=count/post_count",
+    "alignment": "meta malecns_cell_type/manc_cell_type curated + nblast reviewed matches"
+  },
+  "code": {
+    "git_sha": "pending",
+    "generator": "flygpt banc ingest"
+  },
+  "files": [
+    {
+      "key": "meta",
+      "gcs_object": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_meta.feather",
+      "https_url": "https://storage.googleapis.com/lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_meta.feather",
+      "role": "per-neuron metadata: cell types, cross-dataset matches, NT, proofread, dimorphism",
+      "bytes": "57503026",
+      "md5_gcs": "jCuTpgjHFj7J2U1o4HVv9A==",
+      "local_name": "banc_888_meta.feather",
+      "sha256": "86ccf5df0c67419f8c5f43e93a7ed38d23a080e9f7fde26737290252f3780098",
+      "downloaded_utc": "2026-09-26T09:29:42Z"
+    },
+    {
+      "key": "edgelist_v2",
+      "gcs_object": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_edgelist_simple_v2.feather",
+      "https_url": "https://storage.googleapis.com/lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_edgelist_simple_v2.feather",
+      "role": "BANC v888 edgelist, v2 synapse set size>=5 (primary, matches male >=5)",
+      "bytes": "305250378",
+      "md5_gcs": "OUQG+Km98JPIlfla/09sSQ==",
+      "local_name": "banc_888_edgelist_simple_v2.feather",
+      "sha256": "363fdef3813b72a5e45a42f17034cd5a544b654c838929cecf6e1ce5f60625cb",
+      "downloaded_utc": "2026-09-26T09:29:43Z"
+    },
+    {
+      "key": "edgelist_v3",
+      "gcs_object": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_edgelist_simple_v3.feather",
+      "https_url": "https://storage.googleapis.com/lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_edgelist_simple_v3.feather",
+      "role": "v3 edgelist size>=10 (documented sensitivity slice)",
+      "bytes": "359161658",
+      "md5_gcs": "CFQrB3HbdBjtR0vmDcmIbA==",
+      "local_name": null,
+      "sha256": null,
+      "downloaded_utc": null,
+      "not_downloaded": true
+    },
+    {
+      "key": "nt_prediction",
+      "gcs_object": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_neurotransmitter_prediction_v2.csv",
+      "https_url": "https://storage.googleapis.com/lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/banc_888/banc_888_neurotransmitter_prediction_v2.csv",
+      "role": "per-neuron NT predictions (per-neuron edge-sign source)",
+      "bytes": "21107592",
+      "md5_gcs": "TrvR1uBdQZKtDG2ydzmo4w==",
+      "local_name": "banc_888_neurotransmitter_prediction_v2.csv",
+      "sha256": "bb0f4afa48a05d90008c6d801e053ff2667fb1ba68e29501c92f49514540da1d",
+      "downloaded_utc": "2026-09-26T09:29:44Z"
+    },
+    {
+      "key": "malecns_matches",
+      "gcs_object": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/nblast/banc_malecns_reviewed_matches.csv",
+      "https_url": "https://storage.googleapis.com/lee-lab_brain-and-nerve-cord-fly-connectome/nblast/banc_malecns_reviewed_matches.csv",
+      "role": "curated malecns<->BANC match decisions (alignment)",
+      "bytes": "208026",
+      "md5_gcs": "I7x5wmNRTGMfS56rdcTgwQ==",
+      "local_name": "banc_malecns_reviewed_matches.csv",
+      "sha256": "ca6a033644ce8de01cdc2ff528ff54095bfd5514c7948946c42ffcf45e694d6f",
+      "downloaded_utc": "2026-09-26T09:29:45Z"
+    },
+    {
+      "key": "malecns_nblast",
+      "gcs_object": "gs://lee-lab_brain-and-nerve-cord-fly-connectome/nblast/banc_malecns_v0.9_nblast.feather",
+      "https_url": "https://storage.googleapis.com/lee-lab_brain-and-nerve-cord-fly-connectome/nblast/banc_malecns_v0.9_nblast.feather",
+      "role": "NBLAST malecns_v0.9 vs BANC table (alignment backup)",
+      "bytes": "912369066",
+      "md5_gcs": "aozTXyJ/bFWyZp/Netd0+A==",
+      "local_name": null,
+      "sha256": null,
+      "downloaded_utc": null,
+      "not_downloaded": true
+    }
+  ]
+}

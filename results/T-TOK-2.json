@@ -1,0 +1,31 @@
+{
+  "artifact": "T-TOK-2",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:49Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-TOK-2"
+  },
+  "inputs": {},
+  "checks": {
+    "ranges": {
+      "type": [
+        100,
+        11850
+      ],
+      "instance": [
+        11851,
+        13965
+      ],
+      "stimulus": [],
+      "behavior": []
+    },
+    "n_collisions": 0,
+    "collisions": [],
+    "problems": []
+  },
+  "metrics": {
+    "n_collisions": 0
+  },
+  "pass": true
+}

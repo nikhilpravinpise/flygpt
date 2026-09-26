@@ -1,0 +1,44 @@
+{
+  "artifact": "T-CORPUS-4",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:17:54Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-CORPUS-4"
+  },
+  "inputs": {
+    "corpus_dir": "data\\corpus\\pilot\\pilot",
+    "splits": {
+      "pilot": "train"
+    }
+  },
+  "checks": {
+    "regeneration": {
+      "skipped": "no axis holdouts declared in manifest"
+    },
+    "axes": {
+      "families": {
+        "checked": true,
+        "non_atomic": {},
+        "holdout_in_train": []
+      },
+      "cell_types": {
+        "checked": true,
+        "holdout_driven_in_train": []
+      },
+      "regions": {
+        "checked": true,
+        "holdout_driven_in_train": []
+      }
+    },
+    "problems": [],
+    "counts": {
+      "train_families": 10,
+      "test_or_eval_families": 0
+    }
+  },
+  "metrics": {
+    "n_problems": 0
+  },
+  "pass": true
+}

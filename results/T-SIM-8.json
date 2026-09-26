@@ -1,0 +1,33 @@
+{
+  "artifact": "T-SIM-8",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:26Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SIM-8"
+  },
+  "inputs": {
+    "band": {
+      "rate_hz": [
+        0.0,
+        300.0
+      ],
+      "spontaneous_hz": [
+        0.0,
+        50.0
+      ]
+    },
+    "corpus_dir": "data\\corpus\\pilot\\pilot"
+  },
+  "checks": {
+    "n_rate_stats": 1000,
+    "n_spontaneous_stats": 100,
+    "flagged_outlier_fraction": 0.0,
+    "flagged_ids": [],
+    "unreviewed_outliers": []
+  },
+  "metrics": {
+    "flagged_outlier_fraction": 0.0
+  },
+  "pass": true
+}

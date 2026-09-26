@@ -1,0 +1,62 @@
+{
+  "artifact": "T-CORPUS-1",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:16:23Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-CORPUS-1"
+  },
+  "inputs": {
+    "corpus_dir": "data\\corpus\\pilot\\pilot"
+  },
+  "checks": {
+    "n_shards": 10,
+    "per_shard": {
+      "pilot-pilot-train-0000": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0001": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0002": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0003": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0004": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0005": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0006": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0007": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0008": {
+        "ok": true,
+        "problems": []
+      },
+      "pilot-pilot-train-0009": {
+        "ok": true,
+        "problems": []
+      }
+    },
+    "invalid": {}
+  },
+  "metrics": {
+    "n_invalid": 0
+  },
+  "pass": true
+}

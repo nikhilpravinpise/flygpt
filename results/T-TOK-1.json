@@ -1,0 +1,23 @@
+{
+  "artifact": "T-TOK-1",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:47Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-TOK-1"
+  },
+  "inputs": {
+    "quantization_eps": 0.0,
+    "n_steps": 25
+  },
+  "checks": {
+    "n_events_in": 98305,
+    "n_events_out": 98305,
+    "n_mismatched": 0,
+    "quantization_eps": 0.0
+  },
+  "metrics": {
+    "n_mismatched": 0
+  },
+  "pass": true
+}

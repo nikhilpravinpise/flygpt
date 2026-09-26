@@ -1,0 +1,44 @@
+{
+  "artifact": "T-SHIP-6",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:35:28Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SHIP-6"
+  },
+  "inputs": {
+    "repo_root": "."
+  },
+  "checks": {
+    "n_evidenced_claims": 27,
+    "n_claim_artifacts_present": 27,
+    "claim_artifacts_missing": [],
+    "repro_test_ids": [
+      "T-BUILD-1",
+      "T-CORPUS-6",
+      "T-EMB-1",
+      "T-EMB-4",
+      "T-MODEL-1",
+      "T-MODEL-10",
+      "T-MODEL-11",
+      "T-MODEL-2",
+      "T-MODEL-3",
+      "T-MODEL-4",
+      "T-MODEL-5",
+      "T-MODEL-6",
+      "T-MODEL-7",
+      "T-REAL-1",
+      "T-REAL-2",
+      "T-REAL-3",
+      "T-SEX-1",
+      "T-SEX-2",
+      "T-SHIP-10",
+      "T-SHIP-2",
+      "T-SIM-1",
+      "T-SIM-7"
+    ],
+    "has_repro_commands": true
+  },
+  "metrics": {},
+  "pass": true
+}

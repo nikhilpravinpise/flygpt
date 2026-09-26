@@ -1,0 +1,97 @@
+{
+  "artifact": "pilot_report",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:14:30Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt pilot_report"
+  },
+  "inputs": {
+    "pilot": {
+      "n_families": 10,
+      "trials_per_family": 100,
+      "duration_s": 1.0,
+      "dt": 0.02
+    },
+    "corpus_version": "corpus_v1"
+  },
+  "checks": {
+    "all_trials_completed": true,
+    "degenerate_fraction_le_5pct": true,
+    "n_families": 10,
+    "n_shards": 10
+  },
+  "metrics": {
+    "n_trials": 1000,
+    "n_events": 428707500,
+    "wall_seconds": 1246.987,
+    "trials_per_s": 0.802,
+    "events_per_s": 343794.785,
+    "bytes_per_trial": 832276.9,
+    "degenerate_fraction": 0.0
+  },
+  "pass": true,
+  "test_id": "pilot_report",
+  "sane_band": {
+    "courtship_cue": {
+      "pct_active_median": 0.1165769436186353,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 278102.0,
+      "event_rate_mad": 0.0
+    },
+    "gustatory_leg": {
+      "pct_active_median": 0.11114157020848202,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 290286.6666666667,
+      "event_rate_mad": 0.0
+    },
+    "gustatory_sugar": {
+      "pct_active_median": 0.10491215963928026,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 274686.6666666667,
+      "event_rate_mad": 0.0
+    },
+    "lc_silence": {
+      "pct_active_median": 0.10673182812876636,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 268963.3333333333,
+      "event_rate_mad": 0.0
+    },
+    "mechanosensory_jo": {
+      "pct_active_median": 0.11560802922812971,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 276320.0,
+      "event_rate_mad": 0.0
+    },
+    "mechanosensory_other": {
+      "pct_active_median": 0.12784943543012708,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 350998.6666666667,
+      "event_rate_mad": 0.0
+    },
+    "naturalistic": {
+      "pct_active_median": 0.1038109057222666,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 247303.6,
+      "event_rate_mad": 0.0
+    },
+    "olfactory_pulse": {
+      "pct_active_median": 0.10469001829121313,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 264027.3333333333,
+      "event_rate_mad": 0.0
+    },
+    "optogenetic": {
+      "pct_active_median": 0.0,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 0.0,
+      "event_rate_mad": 0.0
+    },
+    "visual_lc": {
+      "pct_active_median": 0.1089485151977767,
+      "pct_active_mad": 0.0,
+      "event_rate_median": 257091.33333333334,
+      "event_rate_mad": 0.0
+    }
+  }
+}

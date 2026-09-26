@@ -1,0 +1,21 @@
+# FlyGPT tokenizer configuration
+# Version tag: tokenizer_v1. Hybrid vocab: type-level tokens + instance-
+# level tokens for designated circuits (EVAL 14.3 token granularity fix).
+version: tokenizer_v1
+
+# Reserved block (schema.py): PAD=0 UNK=1 SEX_M=2 SEX_F=3, then 64
+# stimulus-family slots, then 32 behavior slots; type tokens start at
+# TYPE_TOKEN_BASE=100. Instance tokens occupy a contiguous block AFTER
+# all type tokens - ranges never overlap (T-TOK-2).
+instance_circuits:
+  # designated neuron-level circuits (motor neurons, courtship circuit)
+  superclasses: [vnc_motor, cb_motor, descending_neuron]
+  types: [DNp01, pIP10, aIPg, MN9, DNg100, DNa02, MDN]
+
+binning:
+  convention: floor             # t_bin = floor((t - t0)/dt) (T-TOK-4)
+  dt_source: shard              # dt read from each shard's manifest - never mixed
+  quantization_eps: 0.0         # event representation is exact (T-TOK-1)
+
+output:
+  vocab_manifest: data/vocab/vocab_v1.json

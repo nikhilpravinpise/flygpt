@@ -1,0 +1,22 @@
+FlyGPT
+Copyright 2026 FlyGPT contributors
+
+This product includes data derived from third-party connectome datasets
+released under Creative Commons licenses. Attribution is required when
+redistributing derived artifacts (corpora, embeddings, model weights):
+
+- MaleCNS v1.0 - complete male Drosophila melanogaster central nervous
+  system connectome. Berg et al., Cell 2026. Janelia FlyEM, University of
+  Cambridge, and Google. Licensed CC-BY-4.0.
+  Source: gs://flyem-male-cns/v1.0/
+
+- BANC - Brain and Nerve Cord female Drosophila connectome. Bates,
+  Phelps, Kim et al., Nature 2026. Licensed CC-BY-4.0.
+
+- Neurotransmitter predictions at synaptic sites - per-synapse
+  neurotransmitter classifications used for edge sign assignment.
+  Eckstein et al., Cell 2024.
+
+See THIRD_PARTY_NOTICES.md for the full dependency and data license
+matrix, including assets that were evaluated and deliberately excluded
+(e.g. FlyWire FAFB v783, CC BY-NC 4.0).

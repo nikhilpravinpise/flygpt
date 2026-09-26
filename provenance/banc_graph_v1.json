@@ -1,0 +1,82 @@
+{
+  "graph_version": "banc_v1",
+  "dataset": "banc:v888",
+  "built_utc": "2026-09-26T10:33:55Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt banc.py"
+  },
+  "config_sha256": "2d70631eed4aa917614735eb347565fd1ed3c57b35f16c2d18944399ba265897",
+  "conventions": {
+    "snapshot": "v888",
+    "synapse_snapshot": "v2",
+    "synapse_snapshot_rationale": "v2 = size>=5 detector cutoff, chosen to match the male >=5 read convention; v3 = size>=10 kept as a documented sensitivity slice",
+    "autapse_policy": "excluded_at_build",
+    "autapses_found": 156311,
+    "autapse_note": "~2.1% of autapses excluded upstream in the BANC simple edgelist; residual rows dropped + counted. Asymmetry vs male 'keep' documented, never aligned (R9, T-BUILD-3)",
+    "read_time_cutoff": 5,
+    "cutoffs_built": [
+      5
+    ],
+    "sign_source": "per_neuron",
+    "sign_source_note": "BANC simple edgelist carries no per-T-bar NT table; edge sign = pre neuron's neurotransmitter_predicted classed against the inhibitory set. The male build uses the per-edge T-bar majority rule - divergence recorded verbatim (T-SEX-3 honesty), not harmonized",
+    "inhibitory_classes": [
+      "gaba",
+      "glutamate"
+    ],
+    "norm_semantics": "norm = count/post_count (fraction of the post neuron's inputs)",
+    "node_universe": "every banc_888_meta row; isolated rows retained as zero-degree nodes",
+    "edge_universe": "edgelist rows with both endpoints in banc_888_meta",
+    "meta_columns_absent": [
+      "malecns_cell_type_match"
+    ]
+  },
+  "input_sha256": {
+    "meta": "86ccf5df0c67419f8c5f43e93a7ed38d23a080e9f7fde26737290252f3780098",
+    "edgelist_v2": "363fdef3813b72a5e45a42f17034cd5a544b654c838929cecf6e1ce5f60625cb"
+  },
+  "counts": {
+    "nodes": 188508,
+    "nodes_typed": 118748,
+    "nonnumeric_ids": 0,
+    "edges_raw_rows": 11752828,
+    "edges_both_meta": 11596517,
+    "edge_rows_dropped_unannotated": 0,
+    "weight_sum_dropped": 0,
+    "duplicate_pairs_merged": 0,
+    "autapses_found": 156311,
+    "edges_at_cutoff": {
+      "5": 1535710
+    },
+    "raw_edges_at_cutoff": {
+      "5": 1614479
+    }
+  },
+  "nt": {
+    "sign_source": "per_neuron",
+    "nodes_inhibitory": 46785,
+    "nodes_excitatory": 107268,
+    "nodes_undetermined": 34455,
+    "edges_inhibitory": 4454704,
+    "edges_excitatory": 6950156,
+    "edges_low_confidence": 191657,
+    "nt_column_present": true
+  },
+  "alignment": {
+    "table_parquet": "evals\\alignment_v1.parquet",
+    "table_sha256": "3a43f5bfd3539eb9ef69a111454681c4ba599c394009f5dc21c2f2c7a8a512db",
+    "n_rows": 121168,
+    "iso_class_counts": {
+      "female-only-unmatched": 71108,
+      "isomorphic": 49683,
+      "male-only-unmatched": 115,
+      "male-specific": 262
+    },
+    "untyped_unmatched_meta_rows_excluded": 69525,
+    "inputs": {
+      "meta_sha256": "86ccf5df0c67419f8c5f43e93a7ed38d23a080e9f7fde26737290252f3780098",
+      "matches_sha256": "ca6a033644ce8de01cdc2ff528ff54095bfd5514c7948946c42ffcf45e694d6f"
+    },
+    "generated_utc": "2026-09-26T12:09:49Z"
+  }
+}

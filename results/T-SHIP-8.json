@@ -1,0 +1,22 @@
+{
+  "artifact": "T-SHIP-8",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:25:40Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SHIP-8"
+  },
+  "inputs": {},
+  "checks": {
+    "cpu_leg": "ran",
+    "jax_devices": [
+      "cpu:0"
+    ],
+    "gpu_present": false,
+    "cpu_forward_finite": true,
+    "cuda_leg": "absent-cpu-only"
+  },
+  "metrics": {},
+  "pass": true,
+  "cuda_note": "CUDA leg runs in CI's Modal job when a GPU is attached; this host is CPU-only"
+}

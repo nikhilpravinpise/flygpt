@@ -1,0 +1,522 @@
+{
+  "artifact": "T-STIM-4",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:35:25Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-STIM-4"
+  },
+  "inputs": {
+    "n_programs": 1000
+  },
+  "checks": {
+    "n_envelope_programs": 100,
+    "n_violations": 0,
+    "per_program": [
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      },
+      {
+        "program_id": "naturalistic_08c3c153",
+        "ok": true,
+        "problems": []
+      }
+    ]
+  },
+  "metrics": {
+    "n_violations": 0
+  },
+  "pass": true
+}

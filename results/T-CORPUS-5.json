@@ -1,0 +1,26 @@
+{
+  "artifact": "T-CORPUS-5",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:17:56Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-CORPUS-5"
+  },
+  "inputs": {
+    "corpus_dir": "data\\corpus\\pilot\\pilot"
+  },
+  "checks": {
+    "per_split_slices": {
+      "train": [
+        "pilot"
+      ]
+    },
+    "mixed_splits": {},
+    "problems": []
+  },
+  "metrics": {
+    "n_problems": 0,
+    "n_mixed_splits": 0
+  },
+  "pass": true
+}

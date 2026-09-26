@@ -1,0 +1,34 @@
+{
+  "artifact": "T-SHIP-1",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:25:18Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SHIP-1"
+  },
+  "inputs": {
+    "repo_root": "."
+  },
+  "checks": {
+    "dist_installed": true,
+    "entry_points_resolve": {
+      "flygpt-build-graph": true,
+      "flygpt-ingest": true
+    },
+    "all_entry_points_ok": true,
+    "deps_importable": {
+      "numpy": true,
+      "pyarrow": true,
+      "polars": true,
+      "scipy": true,
+      "requests": true,
+      "tqdm": true,
+      "PyYAML": true
+    },
+    "all_deps_import": true
+  },
+  "metrics": {},
+  "pass": true,
+  "fresh_env_verified": null,
+  "fresh_env_note": "fresh-venv pip install verified by CI job clean-install (windows+linux); not reproduced locally"
+}

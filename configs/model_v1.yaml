@@ -1,0 +1,39 @@
+# FlyGPT model configuration
+# Version tag: model_v1. JAX/Flax (Kaggle TPU drip; v3-8 has no CUDA).
+# ~100M-param headline config; dev configs shrink every dimension.
+version: model_v1
+framework: jax                # jax/flax primary; see docs/plan.md Phase 3
+
+architecture:
+  d_model: 512
+  n_heads: 8
+  d_ff: 2048
+  n_layers: 12                # alternates time-axis and neuron-axis blocks
+  n_vocab: 0                  # filled at build: vocab.size()
+  max_in_degree: 64           # gathered presyn partner cap (recorded)
+  dropout: 0.1
+  activation: gelu
+  norm: layernorm
+  positional: learned         # time-axis positions
+  mask_convention: pre_t_to_post_t1   # post(t) attends pre(t-1); transpose-checked
+
+training:
+  param_target: 100000000
+  batch_trials: 8
+  lr: 0.0003
+  warmup_steps: 2000
+  total_steps: 200000
+  seeds: [1, 2, 3]            # >=3 seeds per EVAL.md; mean+CI reported
+  loss:
+    event_weight: 1.0         # per-unit event BCE
+    rate_weight: 0.1          # rate regression term
+    silence_weight: 0.1       # inactive-unit loss weight (T-MODEL-8)
+  checkpoint_every: 5000      # << every provider session cap (hard rule)
+  resume_is_normal: true
+
+dev:
+  d_model: 64
+  n_heads: 4
+  d_ff: 128
+  n_layers: 2
+  total_steps: 200

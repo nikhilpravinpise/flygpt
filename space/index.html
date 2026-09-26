@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Probe a Fly Brain - FlyGPT</title>
+<style>
+  :root {
+    --bg: #0e1116; --panel: #171c24; --ink: #d8dee7; --dim: #8a93a3;
+    --sens: #6fc3ff; --int: #c9a7f5; --mot: #7fe0a8; --warn: #ffb454;
+    --accent: #ffd76f; --bad: #ff7a7a; --line: #2a3342;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 14px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 24px; margin: 4px 0 2px; }
+  .sub { color: var(--dim); margin: 0 0 14px; }
+  .badge { display: inline-block; background: #3a2b12; color: var(--warn);
+           border: 1px solid #6b4f1d; border-radius: 4px; padding: 1px 8px;
+           font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+           vertical-align: middle; margin-left: 8px; }
+  .btnrow { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 4px; }
+  button { background: var(--panel); color: var(--ink); border: 1px solid var(--line);
+           border-radius: 6px; padding: 8px 14px; font-size: 14px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.active { background: #24304a; border-color: var(--accent); }
+  button.stale { color: var(--dim); }
+  .hint { color: var(--dim); font-size: 12px; min-height: 18px; }
+  .panel { background: var(--panel); border: 1px solid var(--line);
+           border-radius: 8px; padding: 14px; margin-top: 14px; }
+  canvas { display: block; width: 100%; background: #0b0e13; border-radius: 6px; }
+  .row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .row > * { flex: 1 1 0; min-width: 300px; }
+  .decoded { font-size: 20px; font-weight: 600; color: var(--accent); margin: 2px 0 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; }
+  th, td { text-align: left; padding: 4px 8px; border-bottom: 1px solid var(--line); }
+  th { color: var(--dim); font-weight: 600; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar { height: 8px; border-radius: 3px; background: var(--mot); display: inline-block; }
+  details summary { cursor: pointer; font-weight: 600; }
+  dl { display: grid; grid-template-columns: 170px 1fr; gap: 3px 12px; margin: 8px 0; }
+  dt { color: var(--dim); } dd { margin: 0; word-break: break-word; }
+  code { background: #0b0e13; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+  .note { color: var(--dim); font-size: 12px; }
+  .warn { color: var(--warn); }
+  .ok { color: var(--mot); } .no { color: var(--bad); }
+  #status { min-height: 20px; color: var(--dim); }
+  .ctl { display: flex; gap: 8px; align-items: center; margin: 8px 0; }
+  input[type=range] { flex: 1; }
+  footer { color: var(--dim); font-size: 12px; margin-top: 28px; border-top: 1px solid var(--line); padding-top: 12px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Probe a Fly Brain<span class="badge">simulated, not recorded</span></h1>
+  <p class="sub">Canned rollouts of a leaky integrate-and-fire simulator on a
+     connectome wiring fixture. Every spike shown is <strong>simulated, not
+     recorded</strong> - generated offline by <code>space/build_canned.py</code>
+     so this page makes zero live-sim calls and zero GPU calls (T-SHIP-7).
+     Stimulus buttons map to real annotated sensory populations.</p>
+
+  <div class="btnrow" id="btnrow"></div>
+  <div class="hint" id="stimhint"></div>
+  <div id="status">pick a stimulus</div>
+
+  <div class="panel" id="missing" hidden>
+    <strong class="warn">Canned rollout files not found.</strong>
+    <p>This demo reads precomputed traces from <code>space/canned/&lt;stimulus&gt;.json</code>.
+       Generate them once (CPU only, a few seconds):</p>
+    <p><code>python space/build_canned.py --all</code></p>
+    <p class="note">Expected files: <span id="want"></span>. If you opened this
+       page via <code>file://</code>, the browser may block local fetches -
+       either serve the folder (<code>python -m http.server</code>) or load the
+       JSON files manually:</p>
+    <p><input type="file" id="filepick" accept=".json" multiple></p>
+  </div>
+
+  <div id="stage" hidden>
+    <div class="ctl">
+      <button id="playbtn">pause</button>
+      <input type="range" id="scrub" min="0" max="100" value="0">
+      <span id="clock" class="note">0 ms</span>
+    </div>
+    <div class="row">
+      <div class="panel">
+        <strong>activity propagation (per step)</strong>
+        <canvas id="prop" width="920" height="430"></canvas>
+        <div class="note">sensory (blue) - interneuron (violet) - motor/descending (green);
+          driven population ringed; spike flash at step, edge glow shows last-step propagation.</div>
+      </div>
+      <div class="panel">
+        <strong>decoded motor program</strong>
+        <div class="decoded" id="decoded">-</div>
+        <table id="progtable"><thead>
+          <tr><th>program</th><th>readout</th><th class="num">events</th><th></th></tr>
+        </thead><tbody></tbody></table>
+      </div>
+    </div>
+    <div class="panel">
+      <strong>spike raster (all <span id="nnodes"></span> nodes)</strong>
+      <canvas id="raster" width="920" height="320"></canvas>
+    </div>
+    <div class="panel" id="songpanel" hidden>
+      <strong>courtship ethogram - generated vs SongExplorer reference</strong>
+      <canvas id="etho" width="920" height="150"></canvas>
+      <table id="ethtable"><thead>
+        <tr><th>statistic</th><th class="num">generated</th><th class="num">reference range</th><th>in range</th></tr>
+      </thead><tbody></tbody></table>
+      <div class="note">reference panel: song_reference_v1 (SongExplorer /
+        Lillvis 2023, Roemschied 2023) - the same ranges T-REAL-3 scores against.</div>
+    </div>
+    <div class="panel">
+      <details open>
+        <summary>how it's wired</summary>
+        <dl id="prov"></dl>
+        <p class="note" id="disclaimer"></p>
+      </details>
+    </div>
+  </div>
+
+  <footer>
+    FlyGPT - "Probe a Fly Brain" static Space. Code Apache-2.0; derived
+    artifacts CC-BY-4.0 (MaleCNS v1.0 attribution chain). Wiring is real;
+    physiology is simplified and the traces are simulated, not recorded.
+    This is not a digital fly - the controls are the product.
+  </footer>
+</div>
+
+<script>
+"use strict";
+
+var STIMS = [
+  {id: "sugar",        label: "sugar",            hint: "labellar + taste-peg + pharyngeal gustatory receptor neurons - the sugar/feeding axis"},
+  {id: "bitter",       label: "bitter",           hint: "leg-bristle GRNs - the water/bitter axis"},
+  {id: "loom",         label: "shadow overhead",  hint: "LC4 + LPLC2 visual projection neurons - looming escape via the DNp01 giant fiber"},
+  {id: "female_cue",   label: "female detected",  hint: "LC10a/LC11 visual + pheromone ORNs - composite courtship cue (dt=5ms song slice)"},
+  {id: "antenna_dust", label: "dust on antennae", hint: "Johnston's-organ chordotonal + antennal mechanosensory bristles - drives grooming"}
+];
+
+var LAYER_COLOR = {sensory: "#6fc3ff", interneuron: "#c9a7f5", motor: "#7fe0a8"};
+var LAYER_ORDER = {sensory: 0, interneuron: 1, motor: 2};
+
+var cache = {};          // stimulus id -> canned object
+var cur = null;          // current canned object
+var curStep = 0;
+var playing = false;
+var lastTs = 0;
+var STEP_MS = 33;        // playback pace (wall-clock ms per sim step)
+var byStep = [];         // events grouped by step
+var playGen = 0;         // generation guard: one rAF loop at a time
+
+var $ = function (id) { return document.getElementById(id); };
+var btnrow = $("btnrow"), statusEl = $("status"), stage = $("stage"),
+    missing = $("missing"), propC = $("prop"), rasterC = $("raster"),
+    ethoC = $("etho"), songpanel = $("songpanel");
+
+STIMS.forEach(function (s) {
+  var b = document.createElement("button");
+  b.textContent = s.label;
+  b.id = "btn_" + s.id;
+  b.addEventListener("click", function () { select(s.id); });
+  btnrow.appendChild(b);
+});
+$("want").textContent = STIMS.map(function (s) { return "canned/" + s.id + ".json"; }).join(", ");
+
+$("playbtn").addEventListener("click", function () {
+  playing = !playing;
+  $("playbtn").textContent = playing ? "pause" : "play";
+});
+$("scrub").addEventListener("input", function () {
+  if (!cur) return;
+  curStep = Math.round($("scrub").value / 100 * (cur.n_steps - 1));
+  drawFrame();
+});
+$("filepick").addEventListener("change", function (ev) {
+  var files = ev.target.files;
+  for (var i = 0; i < files.length; i++) {
+    (function (f) {
+      var r = new FileReader();
+      r.onload = function () {
+        try {
+          var obj = JSON.parse(r.result);
+          if (obj && obj.stimulus && obj.events) {
+            cache[obj.stimulus] = obj;
+            statusEl.textContent = "loaded " + f.name + " manually";
+            select(obj.stimulus);
+          } else {
+            statusEl.textContent = f.name + " is not a canned rollout file";
+          }
+        } catch (e) { statusEl.textContent = f.name + " is not valid JSON"; }
+      };
+      r.readAsText(f);
+    })(files[i]);
+  }
+});
+
+function markButtons() {
+  STIMS.forEach(function (s) {
+    var b = $("btn_" + s.id);
+    b.classList.toggle("stale", !cache[s.id]);
+  });
+}
+
+function select(id) {
+  STIMS.forEach(function (s) { $("btn_" + s.id).classList.toggle("active", s.id === id); });
+  $("stimhint").textContent = STIMS.filter(function (s) { return s.id === id; })[0].hint;
+  if (cache[id]) { show(cache[id]); return; }
+  statusEl.textContent = "loading canned/" + id + ".json ...";
+  fetch("canned/" + id + ".json").then(function (r) {
+    if (!r.ok) { throw new Error("http " + r.status); }
+    return r.json();
+  }).then(function (obj) {
+    cache[id] = obj;
+    markButtons();
+    show(obj);
+  }).catch(function () {
+    statusEl.textContent = "canned/" + id + ".json unavailable - see instructions below";
+    missing.hidden = false;
+  });
+}
+
+function show(obj) {
+  cur = obj;
+  missing.hidden = true;
+  stage.hidden = false;
+  curStep = 0;
+  playing = true;
+  $("playbtn").textContent = "pause";
+  statusEl.textContent = obj.title + " - " + obj.events.length +
+    " spikes over " + obj.window_ms + " ms (dt " + obj.dt_ms + " ms), " +
+    "backend " + obj.provenance.backend;
+  // index events by step
+  byStep = [];
+  for (var s = 0; s < obj.n_steps; s++) { byStep.push([]); }
+  obj.events.forEach(function (e) {
+    var st = Math.round(e[0] / obj.dt_ms);
+    if (st >= 0 && st < obj.n_steps) { byStep[st].push(e[1]); }
+  });
+  drawStatic();
+  drawReadout();
+  drawProvenance();
+  drawRaster();
+  if (obj.ethogram) { songpanel.hidden = false; drawEtho(); fillEthTable(); }
+  else { songpanel.hidden = true; }
+  lastTs = 0;
+  var gen = ++playGen;
+  requestAnimationFrame(function (t) { tick(t, gen); });
+}
+
+var propStatic = null;
+function drawStatic() {
+  // offscreen base: edges + node dots
+  var c = document.createElement("canvas");
+  c.width = propC.width; c.height = propC.height;
+  var g = c.getContext("2d");
+  g.fillStyle = "#0b0e13"; g.fillRect(0, 0, c.width, c.height);
+  var W = c.width, H = c.height, pad = 24;
+  g.strokeStyle = "rgba(130,145,170,0.10)";
+  cur.edges.forEach(function (e) {
+    var a = cur.nodes[e[0]], b = cur.nodes[e[1]];
+    g.beginPath();
+    g.moveTo(pad + a.x * (W - 2 * pad), pad + a.y * (H - 2 * pad));
+    g.lineTo(pad + b.x * (W - 2 * pad), pad + b.y * (H - 2 * pad));
+    g.stroke();
+  });
+  cur.nodes.forEach(function (n) {
+    g.fillStyle = LAYER_COLOR[n.layer] || "#999";
+    g.beginPath();
+    g.arc(pad + n.x * (W - 2 * pad), pad + n.y * (H - 2 * pad), 3, 0, 6.284);
+    g.fill();
+  });
+  propStatic = c;
+}
+
+function px(n, W, H, pad) {
+  return [pad + n.x * (W - 2 * pad), pad + n.y * (H - 2 * pad)];
+}
+
+function tick(ts, gen) {
+  if (!cur || !playing || gen !== playGen) { return; }
+  if (!lastTs) { lastTs = ts; }
+  var steps = Math.floor((ts - lastTs) / STEP_MS);
+  if (steps > 0) {
+    lastTs += steps * STEP_MS;
+    curStep += steps;
+    if (curStep >= cur.n_steps) { curStep = 0; }   // loop
+    $("scrub").value = Math.round(curStep / (cur.n_steps - 1) * 100);
+    drawFrame();
+  }
+  requestAnimationFrame(function (t2) { tick(t2, gen); });
+}
+
+function drawFrame() {
+  if (!cur) { return; }
+  var g = propC.getContext("2d");
+  var W = propC.width, H = propC.height, pad = 24;
+  g.drawImage(propStatic, 0, 0);
+  // driven population rings
+  var driven = cur.population.driven_nodes;
+  g.strokeStyle = "rgba(255,215,111,0.5)";
+  driven.forEach(function (i) {
+    var p = px(cur.nodes[i], W, H, pad);
+    g.beginPath(); g.arc(p[0], p[1], 6, 0, 6.284); g.stroke();
+  });
+  // edge glow: edges whose pre fired last step
+  var prevSet = {};
+  if (curStep > 0) { byStep[curStep - 1].forEach(function (i) { prevSet[i] = true; }); }
+  g.strokeStyle = "rgba(255,215,111,0.35)";
+  cur.edges.forEach(function (e) {
+    if (!prevSet[e[0]]) { return; }
+    var a = px(cur.nodes[e[0]], W, H, pad), b = px(cur.nodes[e[1]], W, H, pad);
+    g.beginPath(); g.moveTo(a[0], a[1]); g.lineTo(b[0], b[1]); g.stroke();
+  });
+  // spikes this step
+  var now = byStep[curStep] || [];
+  now.forEach(function (i) {
+    var n = cur.nodes[i], p = px(n, W, H, pad);
+    g.fillStyle = "#ffffff";
+    g.beginPath(); g.arc(p[0], p[1], 5.5, 0, 6.284); g.fill();
+    g.fillStyle = LAYER_COLOR[n.layer];
+    g.beginPath(); g.arc(p[0], p[1], 3.5, 0, 6.284); g.fill();
+  });
+  $("clock").textContent = Math.round(curStep * cur.dt_ms) + " ms / " + cur.window_ms + " ms";
+  drawRasterCursor();
+}
+
+var rasterBase = null;
+function drawRaster() {
+  var c = document.createElement("canvas");
+  c.width = rasterC.width; c.height = rasterC.height;
+  var g = c.getContext("2d");
+  var W = c.width, H = c.height;
+  g.fillStyle = "#0b0e13"; g.fillRect(0, 0, W, H);
+  var labelW = 86, padT = 6, padB = 14;
+  var plotW = W - labelW - 8, plotH = H - padT - padB;
+  var n = cur.n_nodes_small;
+  // driven-row tint
+  var driven = {};
+  cur.population.driven_nodes.forEach(function (i) { driven[i] = true; });
+  g.font = "9px sans-serif"; g.textAlign = "left";
+  cur.nodes.forEach(function (nd, i) {
+    var y = padT + (i + 0.5) * plotH / n;
+    if (driven[i]) {
+      g.fillStyle = "rgba(255,215,111,0.07)";
+      g.fillRect(labelW, y - plotH / n / 2, plotW, plotH / n);
+    }
+    if (i % Math.ceil(n / 40) === 0) {
+      g.fillStyle = "#5b6577";
+      g.fillText(nd.type + " " + i, 2, y + 3);
+    }
+  });
+  var sx = plotW / cur.window_ms;
+  cur.events.forEach(function (e) {
+    var i = e[1], nd = cur.nodes[i];
+    var y = padT + (i + 0.5) * plotH / n;
+    g.fillStyle = LAYER_COLOR[nd.layer] || "#999";
+    g.fillRect(labelW + e[0] * sx, y - 1, Math.max(1.2, cur.dt_ms * sx * 0.8), 2);
+  });
+  rasterBase = {c: c, labelW: labelW, plotW: plotW};
+  var gg = rasterC.getContext("2d");
+  gg.drawImage(c, 0, 0);
+}
+
+function drawRasterCursor() {
+  if (!rasterBase) { return; }
+  var g = rasterC.getContext("2d");
+  g.drawImage(rasterBase.c, 0, 0);
+  var x = rasterBase.labelW + curStep * cur.dt_ms / cur.window_ms * rasterBase.plotW;
+  g.strokeStyle = "rgba(255,255,255,0.55)";
+  g.beginPath(); g.moveTo(x, 0); g.lineTo(x, rasterC.height); g.stroke();
+}
+
+function drawReadout() {
+  var ro = cur.readout;
+  $("decoded").textContent = ro.decoded + " - " + ro.decoded_label;
+  var tb = $("progtable").tBodies[0];
+  tb.innerHTML = "";
+  var max = 1;
+  Object.keys(ro.programs).forEach(function (k) {
+    max = Math.max(max, ro.programs[k].events);
+  });
+  Object.keys(ro.programs).forEach(function (k) {
+    var p = ro.programs[k];
+    var tr = document.createElement("tr");
+    var w = Math.round(90 * p.events / max);
+    tr.innerHTML = "<td>" + (k === ro.decoded ? "<strong>" + k + "</strong>" : k) +
+      "</td><td class='note'>" + p.nodes.length + " nodes</td><td class='num'>" +
+      p.events + "</td><td><span class='bar' style='width:" + w + "px'></span></td>";
+    tb.appendChild(tr);
+  });
+  $("nnodes").textContent = cur.n_nodes_small;
+}
+
+function fmtRange(stat) {
+  var r = stat.expected_range_ms || stat.expected_range || stat.expected_range_s;
+  if (r) { return r[0] + " - " + r[1] + (stat.expected_range_ms ? " ms" : stat.expected_range_s ? " s" : ""); }
+  return stat.expected || "-";
+}
+
+function genVal(id) {
+  var st = cur.ethogram.stats;
+  return st[id] !== undefined ? st[id] : null;
+}
+
+function inRange(stat, val) {
+  if (val === null || val === undefined) { return "-"; }
+  var r = stat.expected_range_ms || stat.expected_range || stat.expected_range_s;
+  if (r) { return (val >= r[0] && val <= r[1]) ? "yes" : "NO"; }
+  if (stat.expected) { return val === stat.expected ? "yes" : "NO"; }
+  return "-";
+}
+
+function fillEthTable() {
+  var tb = $("ethtable").tBodies[0];
+  tb.innerHTML = "";
+  cur.ethogram.reference.statistics.forEach(function (st) {
+    var val = genVal(st.id);
+    var cls = inRange(st, val) === "yes" ? "ok" : (inRange(st, val) === "NO" ? "no" : "");
+    var tr = document.createElement("tr");
+    tr.innerHTML = "<td>" + st.id + "</td><td class='num'>" + (val === null ? "-" : val) +
+      "</td><td class='num'>" + fmtRange(st) + "</td><td class='" + cls + "'>" +
+      inRange(st, val) + "</td>";
+    tb.appendChild(tr);
+  });
+}
+
+function drawEtho() {
+  var g = ethoC.getContext("2d");
+  var W = ethoC.width, H = ethoC.height;
+  var padL = 52, padR = 8, padT = 20, laneH = 44, gap = 14;
+  g.fillStyle = "#0b0e13"; g.fillRect(0, 0, W, H);
+  var sx = (W - padL - padR) / cur.window_ms;
+  // context phases
+  cur.ethogram.phases.forEach(function (ph) {
+    g.fillStyle = ph.mode === "pulse" ? "rgba(111,195,255,0.07)" : "rgba(201,167,245,0.07)";
+    g.fillRect(padL + ph.t0_ms * sx, padT - 10, (ph.t1_ms - ph.t0_ms) * sx, 2 * laneH + gap + 10);
+    g.fillStyle = "#5b6577"; g.font = "10px sans-serif"; g.textAlign = "left";
+    g.fillText(ph.context + " -> " + ph.mode, padL + ph.t0_ms * sx + 3, padT - 12);
+  });
+  // pulse lane
+  g.fillStyle = "#5b6577"; g.fillText("pulse", 4, padT + laneH / 2);
+  cur.ethogram.pulse_bouts.forEach(function (b) {
+    g.fillStyle = "rgba(111,195,255,0.18)";
+    g.fillRect(padL + b[0] * sx, padT, (b[1] - b[0]) * sx, laneH);
+  });
+  g.fillStyle = "#6fc3ff";
+  cur.ethogram.pulse_onsets_ms.forEach(function (t) {
+    g.fillRect(padL + t * sx, padT + 6, 2, laneH - 12);
+  });
+  // sine lane
+  var y2 = padT + laneH + gap;
+  g.fillStyle = "#5b6577"; g.fillText("sine", 4, y2 + laneH / 2);
+  cur.ethogram.sine_bouts.forEach(function (b) {
+    g.fillStyle = "rgba(201,167,245,0.30)";
+    g.fillRect(padL + b[0] * sx, y2, (b[1] - b[0]) * sx, laneH);
+  });
+}
+
+function drawProvenance() {
+  var p = cur.provenance, pop = cur.population;
+  var rows = [
+    ["stimulus", cur.title + " (button: " + cur.button + ")"],
+    ["population", pop.description],
+    ["grounding query", JSON.stringify(pop.query)],
+    ["driven nodes", pop.n_driven + " -> " + JSON.stringify(pop.drives)],
+    ["graph", p.graph_source + " (sha256 " + p.graph_sha.slice(0, 16) + "...)"],
+    ["sim", "dt=" + p.sim_cfg.dt + "s, tau_v=" + p.sim_cfg.tau_v + ", tau_g=" +
+      p.sim_cfg.tau_g + ", w_syn=" + p.sim_cfg.w_syn + ", thr=" + p.sim_cfg.threshold],
+    ["backend", p.backend + (p.backend_error ? " (fallback: " + p.backend_error + ")" : "")],
+    ["code", p.generator + " @ " + p.code_sha.slice(0, 12)],
+    ["seed", String(p.seed)],
+    ["generated", p.generated_utc]
+  ];
+  var dl = $("prov");
+  dl.innerHTML = "";
+  rows.forEach(function (r) {
+    var dt = document.createElement("dt"); dt.textContent = r[0];
+    var dd = document.createElement("dd"); dd.textContent = r[1];
+    dl.appendChild(dt); dl.appendChild(dd);
+  });
+  $("disclaimer").textContent =
+    "Every trace on this page is simulated, not recorded: canned LIF rollouts " +
+    "on a connectome wiring fixture, cached so the demo needs zero live sim " +
+    "calls and zero GPU. Limits of the object you are looking at: no " +
+    "morphology, no receptor dynamics, no gap junctions, no non-spiking " +
+    "neurons, no neuropeptides, zero basal firing unless driven, a single " +
+    "specimen, and a fidelity ceiling set by the simulator itself. Claims " +
+    "live in CLAIMS.md; thresholds in EVAL.md; the controls are the product.";
+}
+
+markButtons();
+// light manifest probe: marks which buttons have canned files (failures are fine)
+fetch("canned/manifest.json").then(function (r) {
+  return r.ok ? r.json() : null;
+}).then(function (m) {
+  if (!m || !m.stimuli) { return; }
+  m.stimuli.forEach(function (e) {
+    var b = $("btn_" + e.stimulus);
+    if (b) { b.classList.remove("stale"); }
+  });
+  statusEl.textContent = "manifest: " + m.stimuli.length +
+    " canned rollouts available - pick a stimulus";
+}).catch(function () { /* offline or missing - handled per-button */ });
+</script>
+</body>
+</html>

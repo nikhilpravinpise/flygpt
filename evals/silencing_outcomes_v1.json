@@ -1,0 +1,13 @@
+{
+  "table": "silencing_outcomes_v1",
+  "frozen_utc": "2026-09-26",
+  "source": "Cowley et al. 2024 (DANDI 000951) - published behavioral outcomes of per-driver LC-type silencing during male courtship following",
+  "protocol": "one direction per driver in {increase, decrease, no-effect}: effect on male visual pursuit/courtship following when the driver's LC types are silenced under its reference stimulus",
+  "outcomes": {},
+  "pending_verification": [
+    "LC4", "LC6", "LC9", "LC10a", "LC10ad", "LC10bc", "LC10d", "LC11",
+    "LC12", "LC13", "LC15", "LC16", "LC17", "LC18", "LC20", "LC21",
+    "LC22", "LC24", "LC25", "LC26", "LC31", "LPLC1", "LPLC2"
+  ],
+  "note": "No outcome is guessed. Per-driver published directions land here only after being read off the paper's own figures/tables; until then T-REAL-1 reports predictions with n_scored=0 and pass=null rather than scoring against invented labels."
+}

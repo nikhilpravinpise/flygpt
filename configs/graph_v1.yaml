@@ -1,0 +1,62 @@
+# FlyGPT graph build configuration
+# Version tag: graph_v1 - immutable once published. Convention changes
+# require a new config file, not an edit to this one.
+
+dataset: male-cns:v1.0        # canonical Janelia release, gs://flyem-male-cns/v1.0/
+minconf: 0.5                  # confidence floor baked into the canonical weights file
+
+# Edge threshold: keep edges with >=5 synapses (FlyWire network-stats
+# convention). Alternate cutoffs are built as labeled sensitivity slices
+# so "convention vs biology" is measurable; slices never mix in a split.
+synapse_cutoff: 5
+sensitivity_cutoffs: [3, 5, 10]
+
+# Self-loops are kept for MaleCNS, counted, and reported in the manifest.
+# NOTE: BANC excludes autapses at build (~2.1%). The male/female graph
+# policy asymmetry is documented in provenance/ and in the model card
+# rather than silently aligned.
+autapse_policy: keep
+
+# Per-edge neurotransmitter sign rule (Eckstein et al. 2024 per-synapse
+# predictions; same inhibitory-class set as the Shiu et al. 2024 LIF
+# convention, applied per edge instead of per neuron). An edge is
+# inhibitory iff MORE THAN HALF of its classifiable presynaptic sites
+# (distinct T-bars of that edge) have top-predicted NT in
+# inhibitory_classes. Presynaptic sites are identified by their (x,y,z)
+# coordinate triple, unique in tbar-neurotransmitters.
+#
+# A site is classifiable iff:
+#   - conf >= site_conf_min. The canonical tbar file's `conf` column is a
+#     0-1 detection confidence (observed floor 0.7, i.e. every shipped
+#     site already passes the 0.5 gate - the Shiu-rule "cleft score >= 50"
+#     on the neuPrint 0-100 scale). Parameter retained for schema drift.
+#   - top NT probability >= site_nt_prob_min (~4.1% of sites fail this).
+# Edges with zero classifiable sites are flagged nt_low_confidence with
+# nt_sign=0 - flagged, never guessed. The majority-rule per-neuron sign
+# (Shiu convention) is also computed and stored per node for cross-check.
+nt_sign_rule:
+  inhibitory_fraction_threshold: 0.5   # strict majority of classifiable sites
+  inhibitory_classes: [gaba, glutamate]
+  site_conf_min: 0.5
+  site_nt_prob_min: 0.5
+  on_low_confidence: flag              # flag, do not guess
+
+# Deduplication: repeated (pre, post) pairs are merged at build; the
+# manifest records the merged-edge count.
+dedup_edges: true
+
+# Isolated neurons (zero synapses in the weights file) are retained as
+# zero-degree nodes so the model vocab covers every annotated body.
+keep_isolated_nodes: true
+
+# Seeds are derived as hash(trial config) - never hand-assigned. Applies
+# to corpus generation downstream of this graph; the graph build itself
+# is deterministic.
+seed_derivation: hash_trial_config
+
+version: graph_v1
+
+output:
+  graph_dir: data/graph/         # CSR artifacts (gitignored, regenerable)
+  provenance_dir: provenance/    # sha256 manifests + convention record (committed)
+  results_dir: results/          # build verification JSON (committed)

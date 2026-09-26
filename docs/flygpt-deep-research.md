@@ -250,10 +250,10 @@ FlyGM is an RL policy that borrows topology - it doesn't model neural dynamics, 
 ### 8.3 Data files (exact paths)
 
 - `gs://flyem-male-cns/v1.0/connectome-data/flat-connectome/connectome-weights-male-cns-v1.0-minconf-0.5.feather` - full connection graph, 1.1 GB
-- `body-annotations-male-cns-v1.0-minconf-0.5.feather` - types/classes/sides, 13 MB
+- `body-annotations-male-cns-v1.0-minconf-0.5.feather` - types/classes/sides, 14.5 MB
 - `body-neurotransmitters-male-cns-v1.0.feather` - per-neuron NT predictions, 42 MB
 - `tbar-neurotransmitters-male-cns-v1.0.feather` - per-synapse NT probabilities, 2.7 GB
-- `syn-partners-...feather` (6.8 GB), `syn-points-...feather` (12.7 GB) - synapse-level geometry if needed
+- `syn-partners-...feather` (6.8 GB), `syn-points-...feather` (13.1 GB) - synapse-level geometry if needed
 - Skeletons: `gs://flyem-male-cns/v1.0/segmentation/skeletons-malecns/skeletons-swc/`
 - neuPrint API: `dataset='male-cns:v1.0'`, free token. BANC via bancr/fancr + CAVE.
 - HF mirror: `svgmediabills/malecns-connectome` (gated - accept terms once, then `huggingface_hub` pull).

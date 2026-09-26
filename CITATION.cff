@@ -1,0 +1,67 @@
+cff-version: 1.2.0
+title: FlyGPT
+message: >-
+  If you use this software or artifacts derived from it, please cite it
+  as below, and cite the upstream connectome datasets listed under
+  references.
+type: software
+version: 0.1.0
+date-released: '2026-01-01' # placeholder - update at first tagged release
+license: Apache-2.0
+authors:
+  - name: FlyGPT contributors
+abstract: >-
+  FlyGPT is, to our knowledge, the first trained generative model of a
+  complete synapse-resolution connectome's dynamics: a transformer
+  trained on simulated leaky-integrate-and-fire dynamics of the male
+  fruit-fly central nervous system connectome, with a female-conditioned
+  branch on the BANC connectome.
+keywords:
+  - connectomics
+  - Drosophila
+  - foundation model
+  - neural dynamics
+  - transformer
+repository-code: https://github.com/flygpt/flygpt
+url: https://huggingface.co/flygpt
+references:
+  - type: article
+    scope: "MaleCNS v1.0 connectome dataset (primary training graph)"
+    title: "A connectome of the male Drosophila central nervous system"
+    authors:
+      - family-names: Berg
+        given-names: "S."
+      - name: "MaleCNS Consortium"
+    journal: Cell
+    year: 2026
+    notes: "Janelia FlyEM, University of Cambridge, Google. Data CC-BY-4.0, gs://flyem-male-cns/v1.0/"
+  - type: article
+    scope: "BANC female brain-and-nerve-cord connectome (sex-conditioning branch)"
+    title: "Comparative connectomics of the Drosophila brain and nerve cord"
+    authors:
+      - family-names: Bates
+        given-names: "A. S."
+      - family-names: Phelps
+        given-names: "J. S."
+      - family-names: Kim
+        given-names: "S. S."
+    journal: Nature
+    year: 2026
+    notes: "Data CC-BY-4.0"
+  - type: article
+    scope: "LIF simulation recipe and validation protocol reimplemented for corpus generation"
+    title: "A Drosophila computational brain model reveals sensorimotor processing"
+    authors:
+      - family-names: Shiu
+        given-names: "P. K."
+    journal: Nature
+    year: 2024
+    doi: 10.1038/s41586-024-07763-9
+  - type: article
+    scope: "Per-synapse neurotransmitter predictions used for edge signs"
+    title: "Neurotransmitter classification from electron microscopy images at synaptic sites in Drosophila melanogaster"
+    authors:
+      - family-names: Eckstein
+        given-names: "N."
+    journal: Cell
+    year: 2024

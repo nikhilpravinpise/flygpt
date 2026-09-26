@@ -1,0 +1,13 @@
+{
+  "panel": "song_reference_v1",
+  "frozen_utc": "2026-09-26",
+  "source": "SongExplorer ground-truth statistics (Lillvis et al. 2023 Janelia datasets; Roemschied et al. 2023 Nature song sequencing) - reference ranges pre-registered per EVAL.md T-REAL-3",
+  "statistics": [
+    {"id": "ipi_median_ms", "description": "pulse-song inter-pulse interval median", "expected_range_ms": [30, 45], "reference_value_ms": 37},
+    {"id": "pulse_sine_ratio", "description": "fraction of bout time in pulse vs sine mode", "expected_range": [0.3, 0.9]},
+    {"id": "bout_duration_s", "description": "bout duration distribution median", "expected_range_s": [0.2, 2.0]},
+    {"id": "ipi_cv", "description": "IPI coefficient of variation within bouts", "expected_range": [0.05, 0.5]},
+    {"id": "context_dependence", "description": "near/far female-distance switching direction preserved (near -> more pulse)", "expected": "direction_consistent"}
+  ],
+  "pass_threshold": ">=4/5 statistics inside expected ranges; KS statistics reported per stat (T-REAL-3)"
+}

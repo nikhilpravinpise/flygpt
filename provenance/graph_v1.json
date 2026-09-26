@@ -1,0 +1,86 @@
+{
+  "graph_version": "graph_v1",
+  "dataset": "male-cns:v1.0",
+  "built_utc": "2026-09-26T12:05:21Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt graph.py"
+  },
+  "config_sha256": "825a095712f80b54de0b9b48e238a7bb0aadf91d3061a701f222218a617c4bd3",
+  "conventions": {
+    "synapse_cutoff": 5,
+    "sensitivity_cutoffs": [
+      3,
+      5,
+      10
+    ],
+    "autapse_policy": "keep",
+    "dedup_edges": true,
+    "keep_isolated_nodes": true,
+    "nt_sign_rule": {
+      "inhibitory_fraction_threshold": 0.5,
+      "inhibitory_classes": [
+        "gaba",
+        "glutamate"
+      ],
+      "site_conf_min": 0.5,
+      "site_nt_prob_min": 0.5,
+      "on_low_confidence": "flag"
+    },
+    "node_universe": "every body-annotations row; zero-degree nodes retained",
+    "edge_universe": "connectome-weights rows with both endpoints annotated"
+  },
+  "input_sha256": {
+    "body_annotations": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2",
+    "body_neurotransmitters": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621",
+    "connectome_weights": "e35da783d1c686b2b58b3b87cd6a403ae43bfcfba8bff28e08ef752c1a56afc1",
+    "tbar_neurotransmitters": "bade84c9eab431dd537ff644aaf3d203d639a819c739ecedb338e7d109064f4d",
+    "syn_partners": "959d8ef4173b35382a3e6acfaf5167c795b6d10b877572d146af04e1b487bc07"
+  },
+  "counts": {
+    "nodes": 211577,
+    "nodes_typed": 164506,
+    "nodes_traced_status": 165122,
+    "edges_raw_rows": 151856684,
+    "edges_both_annotated": 26028386,
+    "edges_both_traced": 25563197,
+    "edge_rows_dropped_unannotated": 125828298,
+    "weight_sum_dropped": 186467310,
+    "duplicate_pairs_merged": 0,
+    "autapses_kept": 112,
+    "edges_at_cutoff": {
+      "3": 10653945,
+      "5": 6300108,
+      "10": 2769379
+    },
+    "raw_edges_at_cutoff": {
+      "3": 23014406,
+      "5": 7622864,
+      "10": 2799910
+    },
+    "syn_rows_total": 311833243,
+    "syn_rows_edge_found": 125365933,
+    "syn_rows_unannotated_endpoint": 186467310,
+    "syn_rows_annotated_no_weights_entry": 0,
+    "syn_rows_site_unmatched": 0,
+    "unique_site_post_pairs": 125364542
+  },
+  "nt": {
+    "site_flag_counts": {
+      "unclassifiable": 1887182,
+      "inhibitory": 15738864,
+      "noninhibitory": 28030094
+    },
+    "edges_inhibitory": 9199452,
+    "edges_excitatory": 16148273,
+    "edges_low_confidence": 680661,
+    "edge_vs_neuron_sign_disagree": 847201
+  },
+  "reconciliation": {
+    "weight_mismatch_edges": 0,
+    "weight_mismatch_max_delta": 0,
+    "weight_mismatch_total_abs": 0,
+    "edges_with_zero_syn_rows": 0
+  },
+  "topo_only": false
+}

@@ -1,0 +1,59 @@
+# FlyGPT simulator configuration
+# Version tag: sim_v1 - immutable once a corpus version is generated.
+# Recipe: Shiu et al. 2024 LIF with alpha-synapse (bi-exponential discrete
+# form), per-edge NT sign + synapse-count weights from the graph build.
+#
+# Discrete update (documented + versioned here - the corpus contract):
+#   g[t+1] = g[t]*exp(-dt/tau_g) + sum_{pre fired at t} w_signed(pre->post)
+#   v[t+1] = v[t]*exp(-dt/tau_v) + drive_scale*g[t+1] + tonic_v
+#   fired  = v >= threshold; v[fired] = reset
+# w_signed = sign * weight * w_syn  (weight = synapse count, weight_mode=count)
+#
+# synapse_model "instant" reproduces the flybrain fly64 form
+# (v <- decay*v + gain*sum w + tonic + noise) for cross-checks only.
+version: sim_v1
+
+model:
+  dt: 0.020                 # 20 ms main corpus; 5 ms courtship slice uses dt: 0.005
+  tau_v: 0.100              # membrane tau, seconds (Shiu/flybrain-class value)
+  tau_g: 0.010              # synaptic conductance tau (alpha kernel ~10 ms)
+  w_syn: 0.01               # single free param; calibrated at the pilot gate so
+                          # sugar GRNs @100 Hz drive MN9 ~80% of max rate.
+                          # Adopted 0.01: sweep {0.005,0.01,0.02,0.04} on the
+                          # real connectome puts all 10 grounded pilot families
+                          # inside the degenerate band only at <=0.01
+                          # (active-type fraction 0.47-0.59, split-half r>=0.96
+                          # at 0.01 vs 0.57-0.78 trending degenerate at 0.02).
+                          # Swept per-trial as a documented uncertainty axis
+                          # (audit 14.2). Pilot writes the adopted value into
+                          # the corpus manifest.
+  w_syn_sweep: [0.005, 0.01, 0.02, 0.04]
+  threshold: 1.0
+  reset: 0.0
+  refractory_steps: 0
+  weight_mode: count        # count|binary|normalized - convention slices
+  tonic_rate_hz: 0.0        # global tonic Poisson drive (O8 basal-rate fix;
+                          # swept by the tonic_baseline family)
+  tonic_amount: 0.0
+  noise_hz: 0.0             # sparse kick noise; disabled by default so the
+  noise_amp: 0.0            # unstimulated network is exactly silent (T-SIM-5)
+  synapse_model: alpha      # alpha|instant
+  drive_scale: 1.0
+  warmup_steps: 10          # burn-in dropped per trial (cold-start fix, ~200 ms)
+
+backend: numpy              # numpy|jax|flybrain - single backend per corpus
+gpu_class: cpu              # recorded per shard; never auto-guessed
+
+determinism:
+  seed_derivation: hash_trial_config     # only sanctioned source
+  bitwise_required: [numpy]              # CPU bitwise per EVAL 1.4
+  gpu_tolerance: {event: 0.995, pm1_step: 0.999, rate_pearson: 0.999}
+
+# flybrain audit (v0.1.0, docs/plan.md open item 1) - recorded, not adopted:
+# per-NEURON consensus_nt sign incl. histamine as inhibitory, per-post input
+# normalization, current-based single-ODE update, dt=0.020 tau_v=0.100
+# gain=3.0 tonic=0.14 noise_hz=1.2 noise_amp=0.22 eye_gain=0.62.
+# Ours: per-EDGE T-bar sign, raw counts, alpha synapse - diverges on purpose.
+flybrain_reference:
+  package: flybrain==0.1.0
+  conventions: {sign: per-neuron consensus_nt, inhibitory: [gaba, glutamate, histamine], normalize: per-post-input, update: fly64}

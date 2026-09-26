@@ -1,0 +1,42 @@
+{
+  "test_id": "firstness_check",
+  "kind": "novelty_recheck",
+  "performed_at": "2026-09-26",
+  "status": "UNSUPPORTED_PENDING_RECHECK",
+  "checked_claims": ["C20", "C21"],
+  "method": "Literature survey of connectome-constrained neural-dynamics models known to the authors as of the check date. This is an honest-inventory artifact, not an automated proof of firstness; audit O7 requires a timestamped re-check the week before any upload.",
+  "prior_art_inventory": [
+    {
+      "work": "Shiu et al. 2024, 'flybrain' (Nature, doi:10.1038/s41586-024-07763-9)",
+      "relation": "DIRECT PRIOR ART. A trained recurrent model of neural dynamics constrained by the same male CNS connectome class. FlyGPT is conditioned on the same prior work's published conventions (20 ms dt, ~100 ms tau_v) and diverges in architecture and objective, documented in sim_v1.yaml's backend audit.",
+      "distinguishing_features_of_this_work": [
+        "autoregressive transformer over hybrid event+type token streams trained on a corpus-scale simulated event set, rather than a recurrent rate model",
+        "connectome-masked attention using the CSR graph as a structural prior",
+        "sex-conditioned vocabulary + alignment (male MaleCNS vs female BANC)",
+        "reproducible event-list corpus with sharded provenance and pilot-gate health checks",
+        "behavior/song decoding and control-graph ablation battery"
+      ]
+    },
+    {
+      "work": "Lappalainen et al. 2024 (NeuroMechFly / kinematics) and related embodied fly models",
+      "relation": "Different problem class (biomechanical/kinematic, not synapse-resolution dynamics)"
+    },
+    {
+      "work": "Generic connectome-based inference / fly connectomics releases (FlyWire, hemibrain, MANC, MaleCNS, BANC)",
+      "relation": "Data releases and analyses, not trained generative dynamics models"
+    }
+  ],
+  "verdict": {
+    "C20": {
+      "claim": "first trained generative model of a complete, synapse-resolution animal connectome's dynamics",
+      "holds": false,
+      "reason": "flybrain is a trained model of the same connectome's dynamics; the defensible refinement is 'first autoregressive transformer trained generatively over tokenized event streams of the complete connectome' - narrower and perishable; kept UNSUPPORTED until formal recheck"
+    },
+    "C21": {
+      "claim": "first neural dynamics model conditioned on biological sex at the level of a complete CNS wiring diagram",
+      "holds": null,
+      "reason": "sex-conditioned multi-graph training is not known to exist in the surveyed prior art, but the claim is perishable and must be re-checked before release"
+    }
+  },
+  "required_before_release": "Timestamped literature re-check (audit O7) within 7 days of any public upload; 'to our knowledge' + date qualifiers are mandatory on both claims."
+}

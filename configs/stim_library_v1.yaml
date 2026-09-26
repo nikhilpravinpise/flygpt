@@ -1,0 +1,112 @@
+# FlyGPT stimulus program library
+# Version tag: stim_v1. Families are atomic for splits (S-STIM).
+# Grounding queries resolve through SensoryIndex onto nodes.parquet
+# columns: type, instance, class, superclass, subclass, somaSide,
+# rootSide, somaNeuromere, entryNerve, exitNerve, fruDsx, dimorphism.
+# Every resolution is re-verified by T-STIM-1 against the same nodes table.
+version: stim_v1
+
+# The 23 DANDI 000951 LC silencing drivers (verified from the dandiset's
+# own subject list, sub-<driver>-fly<n>, v0.240418.2218). MaleCNS type
+# mapping documented per driver; multi-type drivers map to the type set.
+dandi_lc_panel:
+  LC4: [LC4]
+  LC6: [LC6]
+  LC9: [LC9]
+  LC10a: [LC10a]
+  LC10ad: [LC10a, LC10d]        # split-GAL4 labels the a/d pair
+  LC10bc: [LC10b, LC10c-1, LC10c-2]
+  LC10d: [LC10d]
+  LC11: [LC11]
+  LC12: [LC12]
+  LC13: [LC13]
+  LC15: [LC15]
+  LC16: [LC16]
+  LC17: [LC17]
+  LC18: [LC18]
+  LC20: [LC20a, LC20b]
+  LC21: [LC21]
+  LC22: [LC22]
+  LC24: [LC24]
+  LC25: [LC25]
+  LC26: [LC26]
+  LC31: [LC31a, LC31b]
+  LPLC1: [LPLC1]
+  LPLC2: [LPLC2]
+
+families:
+  # --- sensory drives (Poisson rate_hz over window, per Shiu protocol) ---
+  olfactory_pulse:            # odor pulse on one glomerulus' ORN type
+    query: {type_regex: "^ORN_"}
+    side_policy: lateralized
+    rate_hz: [40, 100, 200]
+    window_s: [0.2, 1.0]
+    n_programs: 24
+  gustatory_sugar:            # feeding drive: labellar+taste-peg+pharyngeal
+    query: {subclasses: [labellar bristle, taste peg, pharyngeal sensillum]}
+    side_policy: bilateral
+    rate_hz: [40, 100, 200]
+    window_s: [0.2, 1.0]
+    n_programs: 12
+  gustatory_leg:              # leg/wing bristle (water/bitter axis proxy)
+    query: {subclasses: [leg bristle, wing bristle]}
+    side_policy: lateralized
+    rate_hz: [40, 100, 200]
+    window_s: [0.2, 1.0]
+    n_programs: 12
+  visual_lc:                  # loom/spot drive on VPN/LC types
+    query: {type_regex: "^(LC|LPLC|LLPC|LPC|LCNO)"}
+    side_policy: lateralized
+    rate_hz: [40, 100, 200]
+    window_s: [0.2, 1.0]
+    n_programs: 24
+  mechanosensory_jo:          # chordotonal organ = Johnston's (sound/antennal)
+    query: {subclasses: [chordotonal organ]}
+    side_policy: lateralized
+    rate_hz: [40, 100, 200]
+    window_s: [0.2, 1.0]
+    n_programs: 8
+  mechanosensory_other:       # wind/gravity, bristle, campaniform, grooming
+    query: {subclasses: [wind_gravity, mechanosensory bristle, campaniform sensilla, grooming]}
+    side_policy: lateralized
+    rate_hz: [40, 100, 200]
+    window_s: [0.2, 1.0]
+    n_programs: 12
+  courtship_cue:              # composite: female visual cue + pheromone drive
+    query_multi:
+      - {types: [LC10a, LC10d, LC11, LC12, LC17, LPLC2]}
+      - {type_regex: "^ORN_"}
+    side_policy: lateralized
+    rate_hz: [40, 100]
+    window_s: [0.5, 2.0]
+    n_programs: 8
+  # --- perturbation / benchmark ---
+  lc_silence:                 # DANDI-matched silencing family (train-eligible
+    query: {dandi_panel: true}#   per S-STIM exception; eval stays disjoint)
+    silence_window_s: [0.2, 1.0]
+    n_programs: 23
+  optogenetic:                # arbitrary type activate/silence
+    query: {typed: true}
+    n_programs: 24
+  # --- regime controls ---
+  tonic_baseline:             # whole-network tonic sweep (O8 basal-rate fix)
+    tonic_rate_hz: [0.5, 1.0, 2.0, 5.0]
+    n_programs: 8
+  naturalistic:               # bounded non-negative envelopes on sensory sets
+    envelope: naturalistic
+    rate_hz: [60, 150]
+    window_s: [0.5, 2.0]
+    n_programs: 24
+    always_held_out: true     # S-STIM: the naturalistic family is always test
+  babble:                     # random disjoint neuron subsets
+    neurons_per_program: 500
+    n_programs: 16
+  silence_test:               # unstimulated controls (T-SIM-5 harness)
+    n_programs: 4
+
+# Pilot gate: 10 families x 100 trials = 1,000 (plan Phase 1)
+pilot:
+  n_families: 10
+  trials_per_family: 100
+  duration_s: 1.0
+  dt: 0.020

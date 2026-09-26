@@ -1,0 +1,89 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flygpt"
+version = "0.1.0"
+description = "Connectome-constrained foundation model of a complete animal nervous system (MaleCNS v1.0 + BANC)"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "FlyGPT contributors" }]
+keywords = ["connectome", "neuroscience", "drosophila", "foundation-model", "MaleCNS", "BANC"]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "numpy==2.5.3",
+    "pyarrow==25.0.1",
+    "polars==1.44.2",
+    "scipy==1.18.1",
+    "requests==2.34.2",
+    "tqdm==4.70.1",
+    "PyYAML==6.0.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.8",
+]
+# Remote-provider extras are optional on purpose: the pipeline must run locally
+# without them. GPL-licensed tools (natverse/bancr/fafbseg) must NEVER appear
+# in runtime dependencies - they live in scripts/ only (see scripts/README.md).
+remote = [
+    "modal==1.5.5",
+    "huggingface_hub==1.32.0",
+]
+# Model framework: JAX/Flax per plan Phase 3 (Kaggle TPU drip; v3-8 has no
+# CUDA). Optional so data/graph installs stay lean on CPU-only machines.
+model = [
+    "jax[cpu]==0.11.2",
+    "flax==0.12.10",
+    "optax==0.2.8",
+]
+# flybrain: MIT reference simulator - cross-check backend only (T-SIM-2),
+# never a corpus backend. Pinned per plan (single-maintainer v0.1.0).
+flybrain = [
+    "flybrain==0.1.0",
+    "numba==0.67.0",
+]
+
+[project.scripts]
+flygpt-ingest = "flygpt.ingest:main"
+flygpt-build-graph = "flygpt.graph:main"
+flygpt-sim = "flygpt.sim_backend:main"
+flygpt-stimuli = "flygpt.stimuli:main"
+flygpt-corpus = "flygpt.corpus:main"
+flygpt-tokenize = "flygpt.tokenize:main"
+flygpt-train = "flygpt.model:main"
+flygpt-banc = "flygpt.banc:main"
+flygpt-eval = "flygpt.evals:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+flygpt = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+markers = [
+    "slow: tests that scan the full raw dataset (minutes)",
+]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 110
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["flygpt"]

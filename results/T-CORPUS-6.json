@@ -1,0 +1,27 @@
+{
+  "artifact": "T-CORPUS-6",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:19:49Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-CORPUS-6"
+  },
+  "inputs": {
+    "corpus_dir": "data\\corpus\\pilot\\pilot",
+    "shard_id": null
+  },
+  "checks": {
+    "shard": "pilot-pilot-train-0000",
+    "backend": "numpy",
+    "n_trials_regenerated": 100,
+    "n_events_stored": 39604100,
+    "n_events_regenerated": 39604100,
+    "bitwise_identical": true,
+    "agreement": null,
+    "tolerance": null
+  },
+  "metrics": {
+    "bitwise_identical": true
+  },
+  "pass": true
+}

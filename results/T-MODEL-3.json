@@ -1,0 +1,15 @@
+{
+  "artifact": "T-MODEL-3",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:20:06Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-MODEL-3"
+  },
+  "inputs": {},
+  "checks": {
+    "status": "NA: no control score series injected"
+  },
+  "metrics": {},
+  "pass": null
+}

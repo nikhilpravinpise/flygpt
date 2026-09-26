@@ -1,0 +1,39 @@
+# FlyGPT corpus generation configuration
+# Version tag: corpus_v1 - immutable once shards exist. Slice and split
+# rules implement EVAL.md section 3; the corpus manifest generated from
+# this config is the sole authority on split membership (T-CORPUS-4).
+version: corpus_v1
+schema: schema_v1
+
+sim_config: configs/sim_v1.yaml
+stim_library: configs/stim_library_v1.yaml
+tokenizer: configs/tokenizer_v1.yaml
+decoder_spec: configs/decoder_spec_v1.yaml
+
+slices:
+  main:        {dt: 0.020, weight_mode: count,  cutoff: 5,  n_trials: 900000}
+  courtship:   {dt: 0.005, weight_mode: count,  cutoff: 5,  n_trials: 75000}
+  cutoff3:     {dt: 0.020, weight_mode: count,  cutoff: 3,  n_trials: 10000}
+  cutoff10:    {dt: 0.020, weight_mode: count,  cutoff: 10, n_trials: 10000}
+  binary:      {dt: 0.020, weight_mode: binary, cutoff: 5,  n_trials: 5000}
+  shuffled:    {dt: 0.020, weight_mode: count,  cutoff: 5,  n_trials: 20000,
+                weight_shuffle: true}   # Shiu's control lifted to corpus level
+# dt/convention slices never mix inside a split (T-CORPUS-5/7).
+
+splits:
+  stimulus_holdout:
+    rule: ">=1 held-out family per sensory modality + naturalistic always"
+    seed: corpus_v1:stimulus_holdout
+  celltype_holdout:
+    fraction: 0.05
+    strata: [region, nt_class]      # region x NT-class stratified
+    seed: corpus_v1:celltype_holdout
+  region_holdout:
+    per_compartment: 1              # optic lobe / central brain / VNC
+    seed: corpus_v1:region_holdout
+
+output:
+  corpus_dir: data/corpus/
+  manifest: provenance/corpus_v1.json
+  trials_per_shard: 1000
+  dead_letter: data/corpus/deadletter.jsonl

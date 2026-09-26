@@ -1,0 +1,48 @@
+{
+  "artifact": "T-SIM-2",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:26:00Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-SIM-2"
+  },
+  "inputs": {
+    "backend_a": "numpy",
+    "backend_b": "jax",
+    "n_steps": 200,
+    "seed": 8996149567520326936
+  },
+  "checks": {
+    "regime": "cross_backend",
+    "agreement": {
+      "event_agreement": 1.0,
+      "pm1_step_agreement": 1.0,
+      "rate_pearson": 1.0,
+      "rate_pearson_qualified": true,
+      "n_steps": 200,
+      "n_events_a": 1258374,
+      "n_events_b": 1258374
+    },
+    "thresholds": {
+      "pm1_step": 0.99,
+      "rate_pearson": 0.99
+    },
+    "per_metric_pass": {
+      "pm1_step": true,
+      "rate_pearson": true
+    },
+    "bitwise_identical": true
+  },
+  "metrics": {
+    "agreement": {
+      "event_agreement": 1.0,
+      "pm1_step_agreement": 1.0,
+      "rate_pearson": 1.0,
+      "rate_pearson_qualified": true,
+      "n_steps": 200,
+      "n_events_a": 1258374,
+      "n_events_b": 1258374
+    }
+  },
+  "pass": true
+}

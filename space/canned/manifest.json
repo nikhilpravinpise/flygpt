@@ -1,0 +1,76 @@
+{
+  "schema": "canned_manifest_v1",
+  "generated_utc": "2026-09-26T14:01:54Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "space/build_canned.py"
+  },
+  "graph": {
+    "source": "embedded_fixture",
+    "sha256": "777824ee73607257c1912ea1fe648e827d7d838917e75296307cc4b7ee3451ac",
+    "n_nodes": 98,
+    "n_edges": 564
+  },
+  "sim_cfg": {
+    "dt": 0.02,
+    "tau_v": 0.1,
+    "tau_g": 0.01,
+    "w_syn": 0.01,
+    "threshold": 1.0,
+    "reset": 0.0,
+    "refractory_steps": 0,
+    "weight_mode": "count",
+    "synapse_model": "alpha",
+    "drive_scale": 1.0,
+    "warmup_steps": 5,
+    "backend": "numpy"
+  },
+  "note": "All traces are simulated, not recorded: LIF rollouts on a connectome wiring fixture, cached so the Space needs zero live sim calls and zero GPU (T-SHIP-7).",
+  "stimuli": [
+    {
+      "stimulus": "antenna_dust",
+      "title": "Dust on the antennae",
+      "file": "antenna_dust.json",
+      "sha256": "e7776332d0e8175fcdc7729e6d91b6c5f95f55895302aa3adb74e4b6e494f9f8",
+      "n_events": 390,
+      "decoded": "groom",
+      "backend": "flygpt.sim_backend"
+    },
+    {
+      "stimulus": "bitter",
+      "title": "Bitter on the leg",
+      "file": "bitter.json",
+      "sha256": "da87416a5c10e58157389828dbadff9c192b842a940001d35cf026f51abb0927",
+      "n_events": 228,
+      "decoded": "reject",
+      "backend": "flygpt.sim_backend"
+    },
+    {
+      "stimulus": "female_cue",
+      "title": "Female detected (courtship)",
+      "file": "female_cue.json",
+      "sha256": "5b10d0689c850b1fd0f1693085e0a560be10ccdd4546b2c834efaa17299e7e9a",
+      "n_events": 476,
+      "decoded": "court",
+      "backend": "flygpt.sim_backend"
+    },
+    {
+      "stimulus": "loom",
+      "title": "Shadow overhead (loom)",
+      "file": "loom.json",
+      "sha256": "a08c3253df02fd8f8abda47956ed21828c775e1596f192daaefecf6709d4f11b",
+      "n_events": 342,
+      "decoded": "flee",
+      "backend": "flygpt.sim_backend"
+    },
+    {
+      "stimulus": "sugar",
+      "title": "Sugar on the proboscis",
+      "file": "sugar.json",
+      "sha256": "a4b435628de374ae139aadbff8c4cb72cf3e7e6f857eecc046ae44399c347ec0",
+      "n_events": 455,
+      "decoded": "feed",
+      "backend": "flygpt.sim_backend"
+    }
+  ]
+}

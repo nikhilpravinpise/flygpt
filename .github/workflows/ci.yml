@@ -1,0 +1,95 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  unit:
+    # Synthetic-fixture tests run the real pipeline on a mini connectome;
+    # no dataset download needed. Real-artifact T-BUILD tests skip when
+    # data/graph + provenance artifacts are absent.
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .[dev]
+      - run: ruff check src tests
+      - run: pytest tests -x -q
+
+  provenance:
+    # T-BUILD-5 in CI: the committed manifest must be internally consistent
+    # (every file entry well-formed; downloaded entries carry sha256).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: validate manifests
+        run: |
+          python - <<'EOF'
+          import json
+          from pathlib import Path
+          for p in Path("provenance").glob("*.json"):
+              m = json.loads(p.read_text())
+              if "files" in m:
+                  # ingest manifest: downloaded artifacts with hashes
+                  files = m["files"]
+                  assert files, f"{p} has no files"
+                  for f in files:
+                      assert f["gcs_object"].startswith("gs://") or f.get("source_url"), f
+                      if f.get("local_name"):
+                          assert f.get("sha256") and len(f["sha256"]) == 64, f
+                  print(p, "ok:", len(files), "files")
+              elif "graph_version" in m:
+                  # graph-build manifest: structure sanity only
+                  assert m.get("counts"), f"{p} build manifest missing counts"
+                  print(p, "ok: build manifest v", m["graph_version"])
+              else:
+                  raise AssertionError(f"{p}: unknown manifest kind")
+          EOF
+
+  claims:
+    # T-SHIP-2: every EVIDENCED claim in CLAIMS.md links an existing
+    # results/ artifact that does not record a failure, via the shipped
+    # linter (ship_checks.claims_evidence_check) rather than a regex sketch.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - run: python -m flygpt.evals.ship_checks claims --repo-root .
+
+  gpu-smoke:
+    # T-SHIP-8: real smoke on a CUDA provider via a manually triggered
+    # dispatch (runs the package's own smoke entry on a Modal T4). The
+    # modal token is a repo secret; absent -> job skips with a note.
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .[remote,model]
+      - name: modal cuda smoke
+        env:
+          MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+          MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+        run: |
+          if [ -z "$MODAL_TOKEN_ID" ]; then
+            echo "MODAL_TOKEN_ID unset - CUDA smoke skipped (recorded, not run)"
+            exit 0
+          fi
+          modal run modal_app.py::smoke

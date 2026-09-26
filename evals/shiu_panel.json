@@ -1,0 +1,109 @@
+{
+  "panel": "shiu_spot_checks_v1",
+  "frozen_utc": "2026-09-26",
+  "protocol": {
+    "reference": "Shiu et al. 2024 Nature whole-brain LIF (reimplemented, not copied - upstream repo ships no license)",
+    "drive": "Poisson 10-260 Hz on the identified cell type/population",
+    "trials_per_experiment": 30,
+    "duration_s": 1.0,
+    "response_rule": "sign of mean rate change vs the experiment's own baseline window, 95% CI separated across trials; no-effect iff CI includes zero AND point estimate < noise floor (95th pct |dRate| over unstimulated controls of the same target)"
+  },
+  "experiments": [
+    {
+      "id": "sugar_grn_to_mn9",
+      "description": "sugar/bitter GRN drive -> proboscis-feeding motor neuron MN9 rate increase",
+      "drive_query": {"subclasses": ["labellar bristle", "taste peg", "pharyngeal sensillum"]},
+      "drive_rate_hz": 100,
+      "target_query": {"types": ["MN9"]},
+      "expected": "increase",
+      "source": "companion taste-feeding connectome paper (GRN->feeding-MN map); Shiu optogenetic validation"
+    },
+    {
+      "id": "jo_to_grooming",
+      "description": "Johnston's-organ chordotonal drive -> downstream circuit activity increase (postsynaptic proxy for JON->grooming propagation; MaleCNS labels only the 65 cb_sensory grooming afferents, which are not JO-driven)",
+      "drive_query": {"subclasses": ["chordotonal organ"]},
+      "drive_rate_hz": 100,
+      "target_query": {"postsyn_of_drive": true},
+      "expected": "increase",
+      "source": "Shiu JON->grooming validation",
+      "note": "target finalized at pilot: JO's direct postsynaptic partners; the grooming subclass resolves to sensory afferents only"
+    },
+    {
+      "id": "lc4_to_dnp01",
+      "description": "LC4 looming drive -> DNp01 giant-fiber escape response",
+      "drive_query": {"types": ["LC4"]},
+      "drive_rate_hz": 150,
+      "target_query": {"types": ["DNp01"]},
+      "expected": "increase",
+      "source": "LC4->GF escape circuit (published)"
+    },
+    {
+      "id": "lplc2_to_dnp01",
+      "description": "LPLC2 looming drive -> DNp01 escape response",
+      "drive_query": {"types": ["LPLC2"]},
+      "drive_rate_hz": 150,
+      "target_query": {"types": ["DNp01"]},
+      "expected": "increase",
+      "source": "LPLC2->GF escape circuit (published)"
+    },
+    {
+      "id": "orn_bilateral_to_ln",
+      "description": "bilateral ORN drive -> antennal-lobe local neuron (ol_intrinsic) rate increase",
+      "drive_query": {"type_regex": "^ORN_"},
+      "drive_rate_hz": 100,
+      "target_query": {"superclasses": ["ol_intrinsic"]},
+      "expected": "increase",
+      "source": "ORN->LN feedforward excitation (published AL anatomy)"
+    },
+    {
+      "id": "gustatory_leg_to_sez",
+      "description": "leg gustatory drive -> SEZ projection neuron activity increase",
+      "drive_query": {"subclasses": ["leg bristle"]},
+      "drive_rate_hz": 100,
+      "target_query": {"classes": ["SEZPN"]},
+      "expected": "increase",
+      "source": "GRN->SEZ ascending taste pathway (companion taste paper)"
+    },
+    {
+      "id": "visual_lc_to_vnc_dn",
+      "description": "LC-type drive -> descending-neuron population rate increase",
+      "drive_query": {"type_regex": "^LC"},
+      "drive_rate_hz": 150,
+      "target_query": {"superclasses": ["descending_neuron"]},
+      "expected": "increase",
+      "source": "VPN->DN visual-motor pathway (published)"
+    },
+    {
+      "id": "unstimulated_control",
+      "description": "no drive -> target populations at baseline (silence-robustness control)",
+      "drive_query": null,
+      "drive_rate_hz": 0,
+      "target_query": {"types": ["MN9", "DNp01"]},
+      "expected": "no-effect",
+      "source": "noise-floor calibration control"
+    },
+    {
+      "id": "inhibitory_sign_sanity",
+      "description": "drive a strongly-inhibitory type -> downstream rate DECREASE vs baseline",
+      "drive_query": {"types": ["Mi9"]},
+      "drive_rate_hz": 150,
+      "target_query": {"postsyn_of_drive": true},
+      "tonic_rate_hz": 40.0,
+      "tonic_amount": 0.6,
+      "expected": "decrease",
+      "source": "sign-sanity check (T-SIM-4 paired item)",
+      "note": "Mi9 finalized at pilot from the graph's sign table: 1,775 inhibitory-majority neurons -> ~23.5k direct partners; tonic baseline required so a decrease is measurable on the open network"
+    },
+    {
+      "id": "mech_wind_to_dn",
+      "description": "wind/gravity mechanosensory drive -> descending-neuron rate increase",
+      "drive_query": {"subclasses": ["wind_gravity"]},
+      "drive_rate_hz": 100,
+      "target_query": {"superclasses": ["descending_neuron"]},
+      "expected": "increase",
+      "source": "mechanosensory->escape/orientation pathway (published)"
+    }
+  ],
+  "pass_threshold": "8/10 directionally correct (T-SIM-7)",
+  "shuffled_weights_control": "the same panel must collapse to ~chance on a shuffled-weights graph (Shiu's own control; 1/100 in the reference)"
+}

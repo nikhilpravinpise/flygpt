@@ -1,0 +1,27 @@
+{
+  "artifact": "T-TOK-5",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:54Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-TOK-5"
+  },
+  "inputs": {
+    "manifest_path": null
+  },
+  "checks": {
+    "vocab_size": 13966,
+    "n_manifest_types": 11751,
+    "n_mapped_types": 11751,
+    "n_instance_tokens": 2115,
+    "reserved_slots": 100,
+    "expected_size": 13966,
+    "type_map_covers_manifest": true,
+    "problems": []
+  },
+  "metrics": {
+    "expected_size": 13966,
+    "vocab_size": 13966
+  },
+  "pass": true
+}

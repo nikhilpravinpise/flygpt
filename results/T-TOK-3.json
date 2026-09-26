@@ -1,0 +1,23 @@
+{
+  "artifact": "T-TOK-3",
+  "schema": "results_v1",
+  "created_utc": "2026-09-26T16:34:51Z",
+  "code": {
+    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "generator": "flygpt T-TOK-3"
+  },
+  "inputs": {
+    "n_untyped": 47071
+  },
+  "checks": {
+    "n_untyped": 47071,
+    "n_routed_to_unk": 47071,
+    "n_dropped_or_merged": 0,
+    "merged_into_type_ids": [],
+    "unk_fraction": 1.0
+  },
+  "metrics": {
+    "unk_fraction": 1.0
+  },
+  "pass": true
+}

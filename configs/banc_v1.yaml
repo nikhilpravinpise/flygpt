@@ -1,0 +1,45 @@
+# FlyGPT BANC (female connectome) configuration
+# Version tag: banc_v1. Phase 4 scope.
+version: banc_v1
+dataset: banc:v888
+
+# Public Lee-lab deposit (CC-BY-4.0, Bates/Phelps/Kim et al. Nature 2026).
+# Bucket listing + per-product docs verified 2026-09-26.
+source_bucket: gs://lee-lab_brain-and-nerve-cord-fly-connectome/compiled_data/
+snapshot: v888
+synapse_snapshot: v2          # v2 = size>=5 matches the male >=5 convention
+                              # (rationale recorded per plan); v3 = size>=10
+                              # is the newer detector, kept as a documented
+                              # sensitivity slice.
+files:
+  meta: compiled_data/banc_888/banc_888_meta.feather
+  edgelist: compiled_data/banc_888/banc_888_edgelist_simple_v2.feather
+  edgelist_v3: compiled_data/banc_888/banc_888_edgelist_simple_v3.feather
+  nt_prediction: compiled_data/banc_888/banc_888_neurotransmitter_prediction_v2.csv
+  malecns_matches: nblast/banc_malecns_reviewed_matches.csv
+  malecns_nblast: nblast/banc_malecns_v0.9_nblast.feather   # backup only (~900 MB)
+
+conventions:
+  autapse_policy: excluded_at_build   # ~2.1% excluded upstream; documented
+                                      # asymmetry vs male 'keep' - NEVER aligned
+  edge_columns: {pre: pre, post: post, weight: count}
+  norm_column: norm                   # count/post_count - input fraction
+  read_time_cutoff: 5                 # apply count>=5 at read (doc convention)
+  node_universe: meta rows joined on banc_888_id; proofread-annotated set
+
+alignment:
+  primary: malecns_cell_type          # curated column in banc_888_meta
+  secondary: manc_cell_type           # MANC-based alignment for the cord
+  backup: nblast                      # banc_malecns_v0.9 table, score>=0.5
+  iso_classes: [isomorphic, dimorphic, male-specific, female-specific,
+                male-only-unmatched, female-only-unmatched]
+
+female_corpus:
+  n_trials: 200000
+  dt: 0.020                            # matched to the male corpus (T-SEX)
+  coverage_target: shared_dimorphic    # not the whole female CNS
+  stimulus_mode: homologous            # male programs re-resolved on female
+                                     # homologs; missing homologs recorded
+behavior_heads:
+  female: [locomotion, grooming, feeding, rejection]
+  male_only: [song_pulse, song_sine]   # females don't sing - masked heads
