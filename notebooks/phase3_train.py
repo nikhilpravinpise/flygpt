@@ -36,27 +36,43 @@ def _pip_install(repo: str) -> None:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "-e", f"{repo}[model]"])
 
 
-def _edge_set(control: str | None, bundle, cfg, seed: int):
-    """control -> the edge_set the model trains against (real by default)."""
+def _edge_set(control: str | None, bundle, cfg, seed: int,
+              node_token=None, vocab=None):
+    """control -> the edge_set the model trains against (real by default).
+
+    ``node_token`` (node -> vocab column) is required when the unit axis
+    is the vocab (real corpus training): the mask must live on the same
+    V axis the batches use. ``None`` keeps the node-space mask used by
+    the synthetic dev path (V == n_nodes).
+    """
     from flygpt import controls
     from flygpt.model import edge_set_from_bundle, empty_edge_set
 
     if control is None or control == "gnn":
-        return edge_set_from_bundle(bundle, cfg.max_in_degree)
+        return edge_set_from_bundle(bundle, cfg.max_in_degree, node_token)
     if control == "dense":
         return None  # dense arch ignores edges (train() allows None)
     if control == "rewired":
-        return edge_set_from_bundle(controls.rewire(bundle, seed), cfg.max_in_degree)
-    if control == "permuted":
         return edge_set_from_bundle(
-            controls.permuted_labels(bundle, seed), cfg.max_in_degree
+            controls.rewire(bundle, seed), cfg.max_in_degree, node_token
         )
+    if control == "permuted":
+        pb = controls.permuted_labels(bundle, seed)
+        # permuted labels change each node's type -> its vocab column;
+        # remap tokens against the permuted bundle's own labels
+        if node_token is not None:
+            if vocab is None:
+                raise ValueError("permuted control needs vocab for node_token remap")
+            from flygpt.tokenize import node_to_token
+
+            node_token = node_to_token(pb, vocab)
+        return edge_set_from_bundle(pb, cfg.max_in_degree, node_token)
     if control == "shuffled":
         return edge_set_from_bundle(
-            controls.shuffled_weights(bundle, seed), cfg.max_in_degree
+            controls.shuffled_weights(bundle, seed), cfg.max_in_degree, node_token
         )
     if control == "noedge":
-        return empty_edge_set(bundle.n_nodes, cfg.max_in_degree)
+        return empty_edge_set(cfg.n_vocab or bundle.n_nodes, cfg.max_in_degree)
     if control == "wrong_animal":
         from flygpt.model import pad_edge_set
 
@@ -113,6 +129,10 @@ def main() -> int:
         dataset = _npz_iter()
         z0 = np.load(sorted(glob.glob(str(Path(batch_dir) / "batch_*.npz")))[0])
         cfg.n_vocab = int(z0["x"].shape[-1])
+        if cfg.arch != "dense":
+            # vocab-space unit axis: the edge mask must share it
+            vocab = Vocab.load(work / "data" / "vocab" / "vocab_v1.json")
+            node_token = node_to_token(bundle, vocab)
     elif dev:
         from flygpt.model import synthetic_dataset
 
@@ -136,7 +156,8 @@ def main() -> int:
         dataset = _CorpusDS()
 
     # n_vocab must be settled before the edge set (wrong-animal pads to V).
-    cfg.edge_set = _edge_set(control, bundle, cfg, seed)
+    cfg.edge_set = _edge_set(control, bundle, cfg, seed,
+                             node_token=node_token, vocab=vocab)
 
     ckpt = train(cfg, dataset, work / "checkpoints")
     print(f"[driver] checkpoints under {ckpt} - push to remote storage on "

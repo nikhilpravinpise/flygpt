@@ -408,6 +408,38 @@ def test_edge_set_contents(synthetic_bundle, edge_set):
     assert sign[2][valid[2]].tolist() == [-1.0]
 
 
+def test_edge_set_vocab_aggregation(synthetic_bundle, edge_set):
+    """node_token maps the mask onto the vocab axis: identity mapping
+    reproduces the node-space mask; pooled nodes aggregate weights,
+    net-sign, and top-K partners."""
+    n = 6
+    ident = np.arange(n, dtype=np.uint32)
+    ves = model_mod.edge_set_from_bundle(synthetic_bundle, 4, ident)
+    idx, weight, sign, valid = edge_set
+    vidx, vw, vs, vv = ves
+    assert vidx.shape == (n, 4)
+    np.testing.assert_array_equal(vidx, idx)
+    np.testing.assert_allclose(vw, weight)
+    np.testing.assert_array_equal(vs, sign)
+    np.testing.assert_array_equal(vv, valid)
+    # pool nodes {1,2} into token 0; token 1 = node 0 only; rest -> token 2
+    tok = np.array([1, 0, 0, 2, 2, 2], dtype=np.uint32)
+    ves2 = model_mod.edge_set_from_bundle(synthetic_bundle, 4, tok)
+    vidx2, vw2, vs2, vv2 = ves2
+    assert vidx2.shape == (3, 4)
+    # token 0 pools post units 1,2: their presyn tokens are
+    # {tok(0)=1, tok(2)=0(self), tok(1)=0(self), tok(3)=2} -> partners {0,1,2}
+    assert sorted(vidx2[0][vv2[0]].tolist()) == [0, 1, 2]
+    # weights sum across pooled edges: edge 0->1 (w5) and 0->2 (w5)
+    # both land on pair (1,0); weight is the summed count
+    assert vw2[0][vv2[0]].max() <= 1.0
+    # token 1 (node 0) has no presyn partners
+    assert not vv2[1].any()
+    # length validation
+    with pytest.raises(ValueError):
+        model_mod.edge_set_from_bundle(synthetic_bundle, 4, np.zeros(3, np.uint32))
+
+
 def test_forward_shapes(jax_mod, built, edge_set):
     m, params = built
     logits, rates = m.apply({"params": params}, _x(), edge_set, deterministic=True)

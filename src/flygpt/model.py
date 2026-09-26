@@ -185,7 +185,11 @@ class EdgeSet(NamedTuple):
     valid: np.ndarray         # (V, K) bool - False on padding
 
 
-def edge_set_from_bundle(bundle: GraphBundle, max_in_degree: int) -> EdgeSet:
+def edge_set_from_bundle(
+    bundle: GraphBundle,
+    max_in_degree: int,
+    node_token: np.ndarray | None = None,
+) -> EdgeSet:
     """Build the (V, K) EdgeSet from a bundle's by-POST ``in_*`` CSR.
 
     The gather direction is the T-MODEL-9 contract: row u lists the
@@ -193,8 +197,27 @@ def edge_set_from_bundle(bundle: GraphBundle, max_in_degree: int) -> EdgeSet:
     unit u read pre unit v at the previous step. ``bundle.in_*`` is the
     exact transpose of ``out_*`` (schema.build_incoming_csr), which is
     what "transpose-checked by construction" means here.
+
+    ``node_token`` (per-node vocab column, ``tokenize.node_to_token``)
+    selects the unit axis:
+
+    - ``None``: node-space mask (V == n_nodes) - the dev/synthetic path.
+    - given: vocab-space mask (V == ``node_token.max() + 1``), matching
+      ``events_to_counts`` aggregation. Edge (v,u) aggregates to
+      (token[v], token[u]) with weights summed, sign = net-sign of the
+      summed signed weight, top-K per post token. Instance-token units
+      keep their single cell's exact partners; type-token units get the
+      type-level wiring their pooled counts describe.
     """
     n, k = bundle.n_nodes, int(max_in_degree)
+    if node_token is not None:
+        tok = np.asarray(node_token, dtype=np.int64)
+        if tok.size != n:
+            raise ValueError(
+                f"node_token len {tok.size} != bundle.n_nodes {n}"
+            )
+        v = int(tok.max()) + 1 if tok.size else 0
+        return _vocab_edge_set(bundle, tok, v, k)
     idx = np.broadcast_to(np.arange(n, dtype=np.int32)[:, None], (n, k)).copy()
     weight = np.zeros((n, k), dtype=np.float32)
     sign = np.zeros((n, k), dtype=np.float32)
@@ -214,6 +237,44 @@ def edge_set_from_bundle(bundle: GraphBundle, max_in_degree: int) -> EdgeSet:
         idx[u, :take] = bundle.in_indices[lo:hi][sel].astype(np.int32)
         weight[u, :take] = bundle.in_weight[lo:hi][sel].astype(np.float32) / w_max
         sign[u, :take] = bundle.in_sign[lo:hi][sel].astype(np.float32)
+        valid[u, :take] = True
+    return EdgeSet(idx, weight, sign, valid)
+
+
+def _vocab_edge_set(
+    bundle: GraphBundle, node_token: np.ndarray, v: int, k: int
+) -> EdgeSet:
+    """Aggregate the by-POST CSR to (post_token, pre_token) edge weights."""
+    import scipy.sparse as _sp
+
+    deg = np.diff(bundle.in_indptr)
+    post_tok = np.repeat(node_token, deg)
+    pre_tok = node_token[bundle.in_indices.astype(np.int64)]
+    w = bundle.in_weight.astype(np.float64)
+    agg = _sp.csr_matrix((w, (post_tok, pre_tok)), shape=(v, v)).tocsr()
+    net = _sp.csr_matrix(
+        (w * bundle.in_sign.astype(np.float64), (post_tok, pre_tok)),
+        shape=(v, v),
+    ).tocsr()
+    idx = np.broadcast_to(np.arange(v, dtype=np.int32)[:, None], (v, k)).copy()
+    weight = np.zeros((v, k), dtype=np.float32)
+    sign = np.zeros((v, k), dtype=np.float32)
+    valid = np.zeros((v, k), dtype=bool)
+    w_max = float(agg.data.max()) if agg.data.size else 1.0
+    w_max = max(w_max, 1.0)
+    for u in range(v):
+        lo, hi = int(agg.indptr[u]), int(agg.indptr[u + 1])
+        take = min(hi - lo, k)
+        sel = (
+            np.argsort(-agg.data[lo:hi], kind="stable")[:take]
+            if take < hi - lo
+            else np.arange(hi - lo)
+        )
+        cols = agg.indices[lo:hi][sel]
+        idx[u, :take] = cols.astype(np.int32)
+        weight[u, :take] = (agg.data[lo:hi][sel] / w_max).astype(np.float32)
+        nets = np.asarray(net[u, cols].todense()).ravel()
+        sign[u, :take] = np.sign(nets).astype(np.float32)
         valid[u, :take] = True
     return EdgeSet(idx, weight, sign, valid)
 
