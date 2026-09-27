@@ -98,7 +98,8 @@ Conventions are explicit, recorded, and versioned in
   Set a short `HF_HOME` (e.g. `C:\hf`) or use WSL2 for heavy local work.
 - **Nothing trains locally.** The laptop orchestrates only: it launches
   jobs, monitors, and collects artifacts. Corpus generation and training
-  run on remote burst/drip compute (see `docs/free-compute-research.md`).
+  run on remote burst/drip compute (see `docs/free-compute-research.md`,
+  and `future-work.md` for exactly which checks wait on a GPU and why).
 - Every entry point lives in `src/flygpt/`; `notebooks/` and
   `modal_app.py` are thin checkpoint-resume drivers over the same code.
 
