@@ -747,9 +747,12 @@ def run_t_real_1(
             "evals/silencing_outcomes_v1.json absent - published outcomes "
             "not recorded yet",
         )
-    return silencing_predictions(
-        model_fn, load_lc_panel(), bundle, outcomes=outcomes, results_dir=Path(results_dir)
+    res = silencing_predictions(
+        model_fn, load_lc_panel(), bundle, outcomes=outcomes, results_dir=None
     )
+    # return the schema'd write_result dict - the dispatcher keys pass/
+    # status off "pass", which only the written envelope carries
+    return write_silencing_result(Path(results_dir), res)
 
 
 def run_t_real_2(
@@ -769,7 +772,8 @@ def run_t_real_2(
             "download via `python -m flygpt.evals.real_evals --download ...` "
             "plus a run of the model/sim over matched stimuli)",
         )
-    return calcium_comparison(pred_rates, rec_rates, dt, results_dir=Path(results_dir))
+    res = calcium_comparison(pred_rates, rec_rates, dt, results_dir=None)
+    return write_calcium_result(Path(results_dir), res)
 
 
 def run_t_real_3(
@@ -786,7 +790,8 @@ def run_t_real_3(
             "needs song_stats from a courtship-slice SongDecoder.ethogram "
             "run (behavior.SongDecoder over a dt=5ms corpus slice)",
         )
-    return song_eval(song_stats, results_dir=Path(results_dir))
+    res = song_eval(song_stats, results_dir=None)
+    return write_song_result(Path(results_dir), res)
 
 
 def run(

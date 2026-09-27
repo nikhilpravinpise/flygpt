@@ -1,9 +1,9 @@
 {
   "artifact": "T-REAL-1",
   "schema": "results_v1",
-  "created_utc": "2026-09-26T16:25:04Z",
+  "created_utc": "2026-09-26T17:45:37Z",
   "code": {
-    "git_sha": "0ffa1bb1a414f5292011e694421102e863591af6",
+    "git_sha": "e1a7fbaf1959785b6a08c7b3b7b998520da280b7",
     "generator": "flygpt T-REAL-1"
   },
   "inputs": {

@@ -24,7 +24,7 @@
     "T-MODEL-7": "na",
     "T-MODEL-8": "na",
     "T-MODEL-9": "na",
-    "T-REAL-1": "na",
+    "T-REAL-1": "fail",
     "T-REAL-2": "na",
     "T-REAL-3": "na",
     "T-SEX-1": "na",
@@ -63,6 +63,6 @@
     "T-TOK-5": "pass"
   },
   "n_pass": 31,
-  "n_fail": 0,
-  "n_na": 28
+  "n_fail": 1,
+  "n_na": 27
 }
